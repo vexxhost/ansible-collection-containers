@@ -1,4 +1,4 @@
-VERSION 0.1
+VERSION 0.0
 
 mkdocs-image:
   FROM squidfunk/mkdocs-material:9.1.15
