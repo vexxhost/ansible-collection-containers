@@ -12,12 +12,12 @@
 # License for the specific language governing permissions and limitations
 # under the License.
 
-cni_plugins_version: v1.2.0
+cni_plugins_version: v1.3.0
 cni_plugins_checksums:
   amd64:
-    v1.2.0: f3a841324845ca6bf0d4091b4fc7f97e18a623172158b72fc3fdcdb9d42d2d37
+    v1.3.0: 754a71ed60a4bd08726c3af705a7d55ee3df03122b12e389fdba4bea35d7dd7e
   arm64:
-    v1.2.0: 525e2b62ba92a1b6f3dc9612449a84aa61652e680f7ebf4eff579795fe464b57
+    v1.3.0: 86c4c866a01a8073ad14f6feec74de1fd63669786850c7be47521433f9570902
 
 cni_plugins_download_url: "https://github.com/containernetworking/plugins/releases/download/{{ cni_plugins_version }}/cni-plugins-{{ ansible_facts['system'] | lower }}-{{ download_artifact_goarch }}-{{ cni_plugins_version }}.tgz" # noqa: yaml[line-length]
 cni_plugins_download_dest: "{{ download_artifact_work_directory }}/kubernetes-cni-{{ cni_plugins_version }}-{{ ansible_facts['system'] | lower }}-{{ download_artifact_goarch }}.tgz" # noqa: yaml[line-length]

@@ -12,13 +12,12 @@
 # License for the specific language governing permissions and limitations
 # under the License.
 
-runc_version: v1.1.4
+runc_version: v1.1.10
 runc_checksums:
   amd64:
-    v1.1.4: db772be63147a4e747b4fe286c7c16a2edc4a8458bd3092ea46aaee77750e8ce
+    v1.1.10: 81f73a59be3d122ab484d7dfe9ddc81030f595cc59968f61c113a9a38a2c113a
   arm64:
-    v1.1.4: dbb71e737eaef454a406ce21fd021bd8f1b35afb7635016745992bbd7c17a223
-
+    v1.1.10: 4830afd426bdeacbdf9cb8729524aa2ed51790b8c4b28786995925593708f1c8
 runc_download_url: "https://github.com/opencontainers/runc/releases/download/{{ runc_version }}/runc.{{ download_artifact_goarch }}"
 runc_download_dest: /usr/bin/runc
 runc_binary_checksum: "{{ runc_checksums[download_artifact_goarch][runc_version] }}"

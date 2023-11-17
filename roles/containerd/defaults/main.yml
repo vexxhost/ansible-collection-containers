@@ -12,14 +12,12 @@
 # License for the specific language governing permissions and limitations
 # under the License.
 
-containerd_version: 1.7.0
+containerd_version: 1.7.9
 containerd_archive_checksums:
   amd64:
-    1.6.15: 191bb4f6e4afc237efc5c85b5866b6fdfed731bde12cceaa6017a9c7f8aeda02
-    1.7.0: b068b05d58025dc9f2fc336674cac0e377a478930f29b48e068f97c783a423f0
+    1.7.9: ccd5b434393666f6ebbc90eea959ffd3e61958a1e3e1cc830a678f040142d4b0
   arm64:
-    1.6.15: d63e4d27c51e33cd10f8b5621c559f09ece8a65fec66d80551b36cac9e61a07d
-    1.7.0: e7e5be2d9c92e076f1e2e15c9f0a6e0609ddb75f7616999b843cba92d01e4da2
+    1.7.9: 09ca326dee14e00c439137071747c15cc280480e2c26c1e82698c992dd1889c6
 
 containerd_download_url: "https://github.com/containerd/containerd/releases/download/v{{ containerd_version }}/containerd-{{ containerd_version }}-{{ ansible_facts['system'] | lower }}-{{ download_artifact_goarch }}.tar.gz" # noqa: yaml[line-length]
 containerd_download_dest: "{{ download_artifact_work_directory }}/containerd-{{ containerd_version }}-{{ ansible_facts['system'] | lower }}-{{ download_artifact_goarch }}.tar.gz" # noqa: yaml[line-length]

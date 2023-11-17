@@ -12,12 +12,12 @@
 # License for the specific language governing permissions and limitations
 # under the License.
 
-cri_tools_version: v1.25.0
+cri_tools_version: v1.28.0
 cri_tools_crictl_checksums:
   amd64:
-    v1.25.0: 86ab210c007f521ac4cdcbcf0ae3fb2e10923e65f16de83e0e1db191a07f0235
+    v1.28.0: 8dc78774f7cbeaf787994d386eec663f0a3cf24de1ea4893598096cb39ef2508
   arm64:
-    v1.25.0: 651c939eca010bbf48cc3932516b194028af0893025f9e366127f5b50ad5c4f4
+    v1.28.0: 1ea267f3872f4b7f311963ab43ce6653ceeaf8727206c889b56587c95497e9dd
 
 cri_tools_crictl_download_url: "https://github.com/kubernetes-sigs/cri-tools/releases/download/{{ cri_tools_version }}/crictl-{{ cri_tools_version }}-{{ ansible_facts['system'] | lower }}-{{ download_artifact_goarch }}.tar.gz" # noqa: yaml[line-length]
 cri_tools_crictl_download_dest: "{{ download_artifact_work_directory }}/crictl-{{ cri_tools_version }}-{{ ansible_facts['system'] | lower }}-{{ download_artifact_goarch }}.tar.gz" # noqa: yaml[line-length]
@@ -25,9 +25,9 @@ cri_tools_crictl_archive_checksum: "{{ cri_tools_crictl_checksums[download_artif
 
 cri_tools_critest_checksums:
   amd64:
-    v1.25.0: 25ff19ff03fdcddbb948fe1146cd7ce3398c1ae8915fe36c9fc1d2d69fd373e1
+    v1.28.0: fe47cf954b04e43ca4af8458da0d7708954bf8c73e5bb405d8918b43adfdd2f7
   arm64:
-    v1.25.0: fb42d54353b2b6c2417a82277748678d41438ae679fa8925a596953c3cf6c197
+    v1.28.0: 12ac3a1e21e136aae037e98fe37ec3264956793ec450af611c9bab3d60486656
 
 cri_tools_critest_download_url: "https://github.com/kubernetes-sigs/cri-tools/releases/download/{{ cri_tools_version }}/critest-{{ cri_tools_version }}-{{ ansible_facts['system'] | lower }}-{{ download_artifact_goarch }}.tar.gz" # noqa: yaml[line-length]
 cri_tools_critest_download_dest: "{{ download_artifact_work_directory }}/critest-{{ cri_tools_version }}-{{ ansible_facts['system'] | lower }}-{{ download_artifact_goarch }}.tar.gz" # noqa: yaml[line-length]
