@@ -13,7 +13,7 @@
 # under the License.
 
 - name: Install Containerd
-  hosts: "{{ kubernetes_group | default('all') }}"
+  hosts: "{{ target | default('all') }}"
   become: true
   roles:
     - role: containerd
