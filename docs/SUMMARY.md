@@ -1,2 +1,0 @@
-- Operations Guide
-    - ops/*.md

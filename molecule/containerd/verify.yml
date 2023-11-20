@@ -16,8 +16,8 @@
   hosts: all
   become: true
   roles:
-    - vexxhost.kubernetes.cni_plugins
-    - vexxhost.kubernetes.cri_tools
+    - vexxhost.containers.cni_plugins
+    - vexxhost.containers.cri_tools
   post_tasks:
     - name: Install the 10-containerd-net.conflist file
       ansible.builtin.copy:

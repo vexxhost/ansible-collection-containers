@@ -1,0 +1,40 @@
+# Copyright (c) 2023 VEXXHOST, Inc.
+#
+# Licensed under the Apache License, Version 2.0 (the "License"); you may
+# not use this file except in compliance with the License. You may obtain
+# a copy of the License at
+#
+#      http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+# WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
+# License for the specific language governing permissions and limitations
+# under the License.
+
+cri_tools_version: v1.28.0
+cri_tools_crictl_checksums:
+  amd64:
+    v1.28.0: 8dc78774f7cbeaf787994d386eec663f0a3cf24de1ea4893598096cb39ef2508
+  arm64:
+    v1.28.0: 1ea267f3872f4b7f311963ab43ce6653ceeaf8727206c889b56587c95497e9dd
+
+cri_tools_crictl_download_url: "https://github.com/kubernetes-sigs/cri-tools/releases/download/{{ cri_tools_version }}/crictl-{{ cri_tools_version }}-{{ ansible_facts['system'] | lower }}-{{ download_artifact_goarch }}.tar.gz" # noqa: yaml[line-length]
+cri_tools_crictl_download_dest: "{{ download_artifact_work_directory }}/crictl-{{ cri_tools_version }}-{{ ansible_facts['system'] | lower }}-{{ download_artifact_goarch }}.tar.gz" # noqa: yaml[line-length]
+cri_tools_crictl_archive_checksum: "{{ cri_tools_crictl_checksums[download_artifact_goarch][cri_tools_version] }}"
+
+cri_tools_critest_checksums:
+  amd64:
+    v1.28.0: fe47cf954b04e43ca4af8458da0d7708954bf8c73e5bb405d8918b43adfdd2f7
+  arm64:
+    v1.28.0: 12ac3a1e21e136aae037e98fe37ec3264956793ec450af611c9bab3d60486656
+
+cri_tools_critest_download_url: "https://github.com/kubernetes-sigs/cri-tools/releases/download/{{ cri_tools_version }}/critest-{{ cri_tools_version }}-{{ ansible_facts['system'] | lower }}-{{ download_artifact_goarch }}.tar.gz" # noqa: yaml[line-length]
+cri_tools_critest_download_dest: "{{ download_artifact_work_directory }}/critest-{{ cri_tools_version }}-{{ ansible_facts['system'] | lower }}-{{ download_artifact_goarch }}.tar.gz" # noqa: yaml[line-length]
+cri_tools_critest_archive_checksum: "{{ cri_tools_critest_checksums[download_artifact_goarch][cri_tools_version] }}"
+
+# NOTE(mnaser): This is to accomodate for the uninstallation of the old packages
+#               that shipped with the operating system
+cri_tools_package_name: cri-tools
+
+cri_tools_socket: /run/containerd/containerd.sock
