@@ -1,0 +1,64 @@
+# Copyright (c) 2023 VEXXHOST, Inc.
+#
+# Licensed under the Apache License, Version 2.0 (the "License"); you may
+# not use this file except in compliance with the License. You may obtain
+# a copy of the License at
+#
+#      http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+# WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
+# License for the specific language governing permissions and limitations
+# under the License.
+
+- name: Install AppArmor packages
+  ansible.builtin.package:
+    state: present
+    name:
+      - apparmor
+      - apparmor-utils
+  when: ansible_facts['os_family'] == "Debian"
+
+- name: Create systemd service file for docker
+  ansible.builtin.template:
+    src: docker.service.j2
+    dest: /etc/systemd/system/docker.service
+    mode: "0644"
+  notify:
+    - Reload systemd
+    - Restart docker
+
+- name: Create folders for configuration
+  ansible.builtin.file:
+    dest: "{{ item.path }}"
+    state: directory
+    mode: "{{ item.mode | default('0o755') }}"
+    owner: root
+    group: root
+  with_items:
+    - path: "{{ docker_cfg_dir }}"
+    - path: "{{ docker_storage_dir }}"
+    - path: "{{ docker_state_dir }}"
+      mode: "0o711"
+  notify:
+    - Restart docker
+
+- name: Create docker config file
+  ansible.builtin.template:
+    src: daemon.json.j2
+    dest: "{{ docker_cfg_file }}"
+    owner: root
+    group: root
+    mode: "0644"
+  notify:
+    - Restart docker
+
+- name: Force any restarts if necessary
+  ansible.builtin.meta: flush_handlers
+
+- name: Enable and start service
+  ansible.builtin.service:
+    name: docker
+    enabled: true
+    state: started

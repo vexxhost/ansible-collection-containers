@@ -1,0 +1,51 @@
+# Copyright (c) 2023 VEXXHOST, Inc.
+#
+# Licensed under the Apache License, Version 2.0 (the "License"); you may
+# not use this file except in compliance with the License. You may obtain
+# a copy of the License at
+#
+#      http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+# WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
+# License for the specific language governing permissions and limitations
+# under the License.
+
+docker_version: 24.0.7
+docker_archive_checksums:
+  amd64:
+    24.0.7: 984d59a77fa6acab97ea725a966facd33725e0e09c2fee975397fe1c6379bd3d
+  arm64:
+    24.0.7: fe6cf4b509307665af542a89454c2ecfbbd62670fc5a5d17bac7150a6f6a6776
+
+docker_download_url: "https://download.docker.com/linux/static/stable/{{ ansible_facts['architecture'] | lower }}/docker-{{ docker_version }}.tgz" # noqa: yaml[line-length]
+
+docker_download_dest: "{{ download_artifact_work_directory }}/docker-{{ docker_version }}.tgz"
+docker_archive_checksum: "{{ docker_archive_checksums[download_artifact_goarch][docker_version] }}"
+
+docker_pause_image: registry.k8s.io/pause:3.8
+docker_insecure_registries: []
+
+# NOTE(mnaser): This is to accomodate for the uninstallation of the old packages
+#               that shipped with the operating system
+docker_package_name: docker-ce
+
+docker_cfg_dir: /etc/docker
+docker_cfg_file: "{{ docker_cfg_dir }}/daemon.json"
+docker_storage_dir: /var/lib/docker
+docker_state_dir: /run/docker
+
+docker_oom_score: 0
+
+docker_debug_level: "info"
+docker_max_log_size: -1
+
+docker_limit_proc_num: "infinity"
+docker_limit_core: "infinity"
+# NOTE(fitbeard): EL9 family distros set an astronomically large value for open
+#                 files (1073741816 vs 65536). So, if you are running on a rpm-based
+#                 OS that sets an extremely high open files limit, then you need to set
+#                 ulimit nofile to a more reasonable value.
+docker_limit_open_file_num: "{{ '1048576' if ansible_facts['os_family'] == 'RedHat' else 'infinity' }}"
+docker_limit_mem_lock: "infinity"

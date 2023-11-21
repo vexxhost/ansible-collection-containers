@@ -1,0 +1,10 @@
+{
+ "log-driver": "json-file",
+ "log-opts": {
+   "max-size": {{ docker_max_log_size }}
+ }
+ "exec-root": "{{ docker_state_dir }}",
+ "data-root": "{{ docker_storage_dir }}"
+ "log-level": "{{ docker_debug_level | default('info') }}",
+ "oom-score-adjust": {{ docker_oom_score }},
+}
