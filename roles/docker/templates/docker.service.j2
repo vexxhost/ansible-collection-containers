@@ -18,6 +18,7 @@ Documentation=https://docker.io
 BindsTo=containerd.service
 After=network.target local-fs.target
 Wants=network-online.target
+Requires=docker.socket
 
 [Service]
 ExecStartPre=-/sbin/modprobe overlay
