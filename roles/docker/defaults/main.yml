@@ -36,13 +36,14 @@ docker_cfg_file: "{{ docker_cfg_dir }}/daemon.json"
 docker_storage_dir: /var/lib/docker
 docker_state_dir: /run/docker
 
+docker_bridge: "none"
 docker_oom_score: 0
-
 docker_debug_level: "info"
 docker_max_log_size: "50m"
 docker_max_log_file: "5"
 docker_use_iptables: "false"
 docker_ip_forward: "false"
+docker_live_restore: "true"
 
 docker_limit_proc_num: "infinity"
 docker_limit_core: "infinity"
