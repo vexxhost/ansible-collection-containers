@@ -44,6 +44,21 @@
   notify:
     - Restart docker
 
+- name: Install "iptables" package
+  ansible.builtin.package:
+    name: iptables
+    state: present
+  when: docker_use_iptables | bool
+
+- name: Create systemd socket file for docker
+  ansible.builtin.template:
+    src: docker.socket.j2
+    dest: /usr/lib/systemd/system/docker.socket
+    mode: "0644"
+  notify:
+    - Reload systemd
+    - Restart docker
+
 - name: Create docker config file
   ansible.builtin.template:
     src: daemon.json.j2
