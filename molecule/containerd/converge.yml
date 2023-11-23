@@ -17,4 +17,3 @@
   become: true
   roles:
     - vexxhost.containers.containerd
-    - vexxhost.containers.docker
