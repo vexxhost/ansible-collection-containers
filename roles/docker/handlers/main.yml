@@ -12,11 +12,6 @@
 # License for the specific language governing permissions and limitations
 # under the License.
 
-- name: Reload systemd
-  ansible.builtin.systemd:
-    daemon_reload: true
-    daemon_reexec: true
-
 - name: Restart docker
   ansible.builtin.service:
     name: docker
