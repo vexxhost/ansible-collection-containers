@@ -29,8 +29,6 @@
   ansible.builtin.copy:
     src: docker.service
     dest: /etc/systemd/system/docker.service
-    owner: root
-    group: docker
     mode: "0644"
   notify:
     - Reload systemd
@@ -41,8 +39,6 @@
     dest: "{{ item.path }}"
     state: directory
     mode: "{{ item.mode | default('0o755') }}"
-    owner: root
-    group: docker
   with_items:
     - path: "{{ docker_cfg_dir }}"
     - path: "{{ docker_storage_dir }}"
@@ -56,8 +52,6 @@
   ansible.builtin.copy:
     src: docker.socket
     dest: /usr/lib/systemd/system/docker.socket
-    owner: root
-    group: docker
     mode: "0644"
   notify:
     - Reload systemd

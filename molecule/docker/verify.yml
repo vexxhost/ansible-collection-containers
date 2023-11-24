@@ -29,7 +29,6 @@
     - name: Check if Docker version is correct
       command: docker --version
       register: version_output
-      ignore_errors: yes
       failed_when: "docker_version not in version_output.stdout"
 
     - name: Check if docker ps command return 0
