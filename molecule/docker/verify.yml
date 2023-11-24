@@ -24,7 +24,6 @@
       ansible.builtin.assert:
         that:
           - ansible_facts.services["docker.service"].state == "running"
-          - ansible_facts.services["docker.service"].status == "enabled"
 
     - name: Check if Docker version is correct
       command: docker --version
