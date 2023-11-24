@@ -24,32 +24,10 @@ docker_download_url: "https://download.docker.com/linux/static/stable/{{ ansible
 docker_download_dest: "{{ download_artifact_work_directory }}/docker-{{ docker_version }}.tgz"
 docker_archive_checksum: "{{ docker_archive_checksums[download_artifact_goarch][docker_version] }}"
 
-docker_pause_image: registry.k8s.io/pause:3.8
-docker_insecure_registries: []
-
 # NOTE(mnaser): This is to accomodate for the uninstallation of the old packages
 #               that shipped with the operating system
 docker_package_name: docker-ce
-
 docker_cfg_dir: /etc/docker
 docker_cfg_file: "{{ docker_cfg_dir }}/daemon.json"
 docker_storage_dir: /var/lib/docker
 docker_state_dir: /run/docker
-
-docker_bridge: "none"
-docker_oom_score: 0
-docker_debug_level: "info"
-docker_max_log_size: "50m"
-docker_max_log_file: "5"
-docker_use_iptables: "false"
-docker_ip_forward: "false"
-docker_live_restore: "true"
-
-docker_limit_proc_num: "infinity"
-docker_limit_core: "infinity"
-# NOTE(fitbeard): EL9 family distros set an astronomically large value for open
-#                 files (1073741816 vs 65536). So, if you are running on a rpm-based
-#                 OS that sets an extremely high open files limit, then you need to set
-#                 ulimit nofile to a more reasonable value.
-docker_limit_open_file_num: "{{ '1048576' if ansible_facts['os_family'] == 'RedHat' else 'infinity' }}"
-docker_limit_mem_lock: "infinity"

@@ -11,9 +11,21 @@
 # WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
 # License for the specific language governing permissions and limitations
 # under the License.
+_docker_config:
+  exec-root: "{{ docker_state_dir }}"
+  data-root: "{{ docker_storage_dir }}"
+  oom-score-adjust: 0
+  bridge: none
+  default-ulimits:
+    nofile:
+      hard: 1048576
+      name: nofile
+      soft: 1048576
+  ip-forward: false
+  iptables: false
+  live-restore: true
+  log-opts:
+    max-file: '5'
+    max-size: '50m'
 
-- name: Converge
-  hosts: all
-  become: true
-  roles:
-    - vexxhost.containers.docker
+docker_config: {}

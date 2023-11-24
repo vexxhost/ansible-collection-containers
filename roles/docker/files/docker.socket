@@ -7,7 +7,7 @@ Description=Docker Socket for the API
 ListenStream=/run/docker.sock
 SocketMode=0660
 SocketUser=root
-SocketGroup=root
+SocketGroup=docker
 
 [Install]
 WantedBy=sockets.target

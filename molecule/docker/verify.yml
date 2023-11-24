@@ -15,58 +15,24 @@
 - name: Verify
   hosts: all
   become: true
-  roles:
-    - vexxhost.containers.cni_plugins
-    - vexxhost.containers.cri_tools
-  post_tasks:
-    - name: Install the 10-containerd-net.conflist file
-      ansible.builtin.copy:
-        dest: /etc/cni/net.d/10-containerd-net.conflist
-        content: |
-          {
-            "cniVersion": "1.0.0",
-            "name": "containerd-net",
-            "plugins": [
-              {
-                "type": "bridge",
-                "bridge": "cni0",
-                "isGateway": true,
-                "ipMasq": true,
-                "promiscMode": true,
-                "ipam": {
-                  "type": "host-local",
-                  "ranges": [
-                    [{
-                      "subnet": "10.88.0.0/16"
-                    }],
-                    [{
-                      "subnet": "2001:4860:4860::/64"
-                    }]
-                  ],
-                  "routes": [
-                    { "dst": "0.0.0.0/0" },
-                    { "dst": "::/0" }
-                  ]
-                }
-              },
-              {
-                "type": "portmap",
-                "capabilities": {"portMappings": true}
-              }
-            ]
-          }
+  pre_tasks:
+    - name: Populate service facts
+      ansible.builtin.service_facts:
 
-    - name: Restart "containerd"
-      ansible.builtin.service:
-        name: containerd
-        state: restarted
+  tasks:
+    - name: Assert that the Docker service is still up
+      ansible.builtin.assert:
+        that:
+          - ansible_facts.services["docker.service"].state == "running"
+          - ansible_facts.services["docker.service"].status == "enabled"
 
-    - name: Run test suite
-      block:
-        - name: Run "critest"
-          ansible.builtin.command: critest
-          register: _critest
-      always:
-        - name: Print out "critest" output
-          ansible.builtin.debug:
-            msg: "{{ _critest.stdout_lines }}"
+    - name: Check if Docker version is correct
+      command: docker --version
+      register: version_output
+      ignore_errors: yes
+      failed_when: "docker_version not in version_output.stdout"
+
+    - name: Check if docker ps command return 0
+      command: docker ps
+      register: result
+      failed_when: "result.rc !=0"

@@ -30,6 +30,7 @@ galaxy_info:
 
 dependencies:
   - role: runc
+  - role: containerd
   - role: forget_package
     forget_package_name: "{{ docker_package_name }}"
     when: ansible_facts['pkg_mgr'] == "apt"
@@ -50,4 +51,3 @@ dependencies:
       - --strip-components=1
     download_artifact_notify:
       - Restart docker
-  - role: containerd
