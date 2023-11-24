@@ -28,6 +28,7 @@ jobs:
       matrix:
         scenario:
           - containerd
+          - docker
         distro:
           - rockylinux8
           - rockylinux9

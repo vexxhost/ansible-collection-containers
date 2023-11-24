@@ -1,0 +1,66 @@
+# Copyright (c) 2023 VEXXHOST, Inc.
+#
+# Licensed under the Apache License, Version 2.0 (the "License"); you may
+# not use this file except in compliance with the License. You may obtain
+# a copy of the License at
+#
+#      http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+# WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
+# License for the specific language governing permissions and limitations
+# under the License.
+
+- name: Install AppArmor packages
+  ansible.builtin.package:
+    state: present
+    name:
+      - apparmor
+      - apparmor-utils
+  when: ansible_facts['os_family'] == "Debian"
+
+- name: Ensure group "docker" exists
+  ansible.builtin.group:
+    name: docker
+    state: present
+
+- name: Create systemd service file for docker
+  ansible.builtin.copy:
+    src: docker.service
+    dest: /etc/systemd/system/docker.service
+    mode: "0644"
+  notify:
+    - Reload systemd
+    - Restart docker
+
+- name: Create folders for configuration
+  ansible.builtin.file:
+    dest: "{{ item.path }}"
+    state: directory
+    mode: "{{ item.mode | default('0o755') }}"
+  with_items:
+    - path: "{{ docker_cfg_dir }}"
+    - path: "{{ docker_storage_dir }}"
+      mode: "0o710"
+    - path: "{{ docker_state_dir }}"
+      mode: "0o711"
+  notify:
+    - Restart docker
+
+- name: Create systemd socket file for docker
+  ansible.builtin.copy:
+    src: docker.socket
+    dest: /usr/lib/systemd/system/docker.socket
+    mode: "0644"
+  notify:
+    - Reload systemd
+    - Restart docker
+
+- name: Create docker daemon config file
+  ansible.builtin.copy:
+    content: "{{ _docker_config | combine(docker_config, recursive=True) | to_nice_json }}"  # noqa: yaml[line-length]
+    dest: "{{ docker_cfg_file }}"
+    mode: "0644"
+  notify:
+    - Restart docker
