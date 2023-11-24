@@ -1,5 +1,22 @@
 # Changelog
 
+## [1.1.0](https://github.com/vexxhost/ansible-collection-containers/compare/v1.0.2...v1.1.0) (2023-11-24)
+
+
+### Bug Fixes
+
+* add socket file and daemon configs ([f950faf](https://github.com/vexxhost/ansible-collection-containers/commit/f950faf94506412055b936cf58643e170a453f38))
+* docker verify ([c560b93](https://github.com/vexxhost/ansible-collection-containers/commit/c560b936a43533a389fca53ad4434487abd57db2))
+* fix ansible-lint ([7e64707](https://github.com/vexxhost/ansible-collection-containers/commit/7e647070dd48204b68389ae66a531e2d25719bc9))
+* fix docker idempotence ([fbfab19](https://github.com/vexxhost/ansible-collection-containers/commit/fbfab199a33766451bdd0dd50b5033936c00673b))
+* only include docker files when download ([705ac94](https://github.com/vexxhost/ansible-collection-containers/commit/705ac94ccdeff296622432a2cb59bfd837d5a70e))
+* refector docker role ([03ab6ea](https://github.com/vexxhost/ansible-collection-containers/commit/03ab6ead9b29b5fb98ee85f96e7f3f31c58aa081))
+
+
+### Miscellaneous Chores
+
+* release 1.1.0 ([1b1689d](https://github.com/vexxhost/ansible-collection-containers/commit/1b1689d286e2063b22e09091e9f95cf85ec12010))
+
 ## [1.0.2](https://github.com/vexxhost/ansible-collection-containers/compare/v1.0.1...v1.0.2) (2023-11-21)
 
 
