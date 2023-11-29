@@ -32,7 +32,6 @@
     mode: "0644"
   notify:
     - Reload systemd
-    - Restart docker
 
 - name: Create folders for configuration
   ansible.builtin.file:
@@ -45,8 +44,6 @@
       mode: "0o710"
     - path: "{{ docker_state_dir }}"
       mode: "0o711"
-  notify:
-    - Restart docker
 
 - name: Create systemd socket file for docker
   ansible.builtin.copy:
@@ -55,12 +52,15 @@
     mode: "0644"
   notify:
     - Reload systemd
-    - Restart docker
 
 - name: Create docker daemon config file
   ansible.builtin.copy:
     content: "{{ _docker_config | combine(docker_config, recursive=True) | to_nice_json }}"  # noqa: yaml[line-length]
     dest: "{{ docker_cfg_file }}"
     mode: "0644"
-  notify:
-    - Restart docker
+
+- name: Enable and start service
+  ansible.builtin.service:
+    name: containerd
+    enabled: true
+    state: restarted

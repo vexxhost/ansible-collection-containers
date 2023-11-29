@@ -49,5 +49,3 @@ dependencies:
       - docker/docker-proxy
     download_artifact_unarchive_extra_opts:
       - --strip-components=1
-    download_artifact_notify:
-      - Restart docker
