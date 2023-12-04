@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.1.1](https://github.com/vexxhost/ansible-collection-containers/compare/v1.1.0...v1.1.1) (2023-12-04)
+
+
+### Bug Fixes
+
+* **docker:** start on install ([b446dcc](https://github.com/vexxhost/ansible-collection-containers/commit/b446dccc642179ea6ae7f381311acb8084c7b4a9))
+
 ## [1.1.0](https://github.com/vexxhost/ansible-collection-containers/compare/v1.0.2...v1.1.0) (2023-11-24)
 
 
