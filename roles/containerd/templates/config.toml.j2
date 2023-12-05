@@ -21,3 +21,5 @@ oom_score = {{ containerd_oom_score }}
       [plugins."io.containerd.grpc.v1.cri".registry.configs."{{ registry }}".tls]
         insecure_skip_verify = true
       {% endfor %}
+  [plugins."io.containerd.grpc.v1.cri".containerd]
+    {% if containerd_snapshotter | length %}snapshotter = "{{ containerd_snapshotter }}"{% endif %}
