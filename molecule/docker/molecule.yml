@@ -30,6 +30,8 @@ platforms:
     volumes:
       - /sys/fs/cgroup:/sys/fs/cgroup:rw
       - /lib/modules:/lib/modules:ro
+      - /var/lib/containers
+      - /var/lib/docker
 provisioner:
   name: ansible
   config_options:
