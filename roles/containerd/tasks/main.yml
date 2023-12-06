@@ -44,35 +44,6 @@
   notify:
     - Restart containerd
 
-- name: Workaround for "/var/lib/containerd" inside "overlayfs"
-  # NOTE(mnaser): This is to allow our tests to run on Docker containers since
-  #               the "/var/lib/containerd" directory cannot be mounted inside
-  #               an "overlayfs" filesystem.
-  when: ansible_connection == "community.docker.docker"
-  block:
-    - name: Generate a 20G file for "/var/lib/containers"
-      ansible.builtin.command: truncate -s 100G /var/lib/containerd.img
-      args:
-        creates: /var/lib/containerd.img
-
-    - name: Install "xfsprogs" package
-      ansible.builtin.package:
-        name: xfsprogs
-        state: present
-
-    - name: Create an "xfs" filesystem on "/var/lib/containerd.img"
-      ansible.builtin.command: mkfs.xfs -m reflink=1 /var/lib/containerd.img
-      register: containerd_mkfs_xfs
-      changed_when: "'contain an existing filesystem' not in containerd_mkfs_xfs.stderr"
-      failed_when: false
-
-    - name: Mount the "xfs" filesystem
-      ansible.posix.mount:
-        path: /var/lib/containerd
-        src: /var/lib/containerd.img
-        fstype: xfs
-        state: mounted
-
 - name: Create containerd config file
   ansible.builtin.template:
     src: config.toml.j2
