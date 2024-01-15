@@ -82,9 +82,11 @@
     mode: "0644"
   notify:
     - Restart containerd
+  changed_when: false
 
 - name: Force any restarts if necessary
   ansible.builtin.meta: flush_handlers
+  changed_when: false
 
 - name: Enable and start service
   ansible.builtin.service:
