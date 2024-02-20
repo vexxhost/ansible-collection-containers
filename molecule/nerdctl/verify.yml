@@ -64,6 +64,6 @@
       ansible.builtin.command: nerdctl image pull docker.io/library/alpine:latest
 
     - name: List images
-      ansible.builtin.command: nerdctl images ls
+      ansible.builtin.command: nerdctl image ls
       register: images
       failed_when: not(images.stdout.find('alpine') != -1)
