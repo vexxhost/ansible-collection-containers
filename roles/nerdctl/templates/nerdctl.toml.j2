@@ -1,0 +1,9 @@
+debug          = false
+debug_full     = false
+address        = "unix://{{ nerdctl_socket }}"
+namespace      = "{{ nerdctl_namespace }}"
+{% if nerdctl_snapshotter | length %}snapshotter = "{{ nerdctl_snapshotter }}"{% endif %}
+hosts_dir      = ["/etc/containerd/certs.d", "/etc/docker/certs.d"]
+cgroup_manager = "{{ nerdctl_cgroup_manager }}"
+experimental   = {{ nerdctl_experimental | lower }}
+insecure_registry = {{ nerdctl_insecure_registry | lower }}
