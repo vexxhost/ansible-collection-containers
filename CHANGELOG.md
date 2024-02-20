@@ -1,5 +1,17 @@
 # Changelog
 
+## [1.2.0](https://github.com/vexxhost/ansible-collection-containers/compare/v1.1.1...v1.2.0) (2024-02-20)
+
+
+### Features
+
+* add nerdctl ([db64437](https://github.com/vexxhost/ansible-collection-containers/commit/db644371ce1a93c4e5d25cf00c0a1a0b12b12842))
+
+
+### Bug Fixes
+
+* typo in image list command ([14bc5a8](https://github.com/vexxhost/ansible-collection-containers/commit/14bc5a852b4531f75165c1df6674a4040c21a661))
+
 ## [1.1.1](https://github.com/vexxhost/ansible-collection-containers/compare/v1.1.0...v1.1.1) (2023-12-04)
 
 
