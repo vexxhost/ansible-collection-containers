@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.2.1](https://github.com/vexxhost/ansible-collection-containers/compare/v1.2.0...v1.2.1) (2024-03-13)
+
+
+### Bug Fixes
+
+* **docker:** Update to version 24.0.9 ([56de01a](https://github.com/vexxhost/ansible-collection-containers/commit/56de01aac1c933e468ddd6473a7fc43029516969))
+
 ## [1.2.0](https://github.com/vexxhost/ansible-collection-containers/compare/v1.1.1...v1.2.0) (2024-02-20)
 
 
