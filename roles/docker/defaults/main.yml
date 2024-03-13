@@ -12,12 +12,12 @@
 # License for the specific language governing permissions and limitations
 # under the License.
 
-docker_version: 24.0.7
+docker_version: 24.0.9
 docker_archive_checksums:
   amd64:
-    24.0.7: 984d59a77fa6acab97ea725a966facd33725e0e09c2fee975397fe1c6379bd3d
+    24.0.9: 692ecfc28333485d184f628b74c25b2894cee9495a51a5418ba60ef95bf733ca
   arm64:
-    24.0.7: fe6cf4b509307665af542a89454c2ecfbbd62670fc5a5d17bac7150a6f6a6776
+    24.0.9: 7e999590330a15469de20ac37051407d222ea73c71c10c05d61666d42c5922d1
 
 docker_download_url: "https://download.docker.com/linux/static/stable/{{ ansible_facts['architecture'] | lower }}/docker-{{ docker_version }}.tgz" # noqa: yaml[line-length]
 
