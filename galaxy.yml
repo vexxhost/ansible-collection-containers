@@ -1,6 +1,6 @@
 namespace: vexxhost
 name: containers
-version: 1.2.1 # x-release-please-version
+version: 1.2.1
 readme: README.md
 authors:
   - Mohammed Naser <mnaser@vexxhost.com>
@@ -23,5 +23,3 @@ build_ignore:
   - .github
   - molecule
   - .pre-commit-config.yaml
-  - .release-please-manifest.json
-  - release-please-config.json
