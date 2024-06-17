@@ -24,6 +24,10 @@ download_artifact_validate_certs: true
 # download_artifact_url_username:
 # download_artifact_url_password:
 
+download_artifact_http_proxy: "{{ http_proxy | default('') }}"
+download_artifact_https_proxy: "{{ https_proxy | default('') }}"
+download_artifact_no_proxy: "{{ no_proxy | default('') }}"
+
 # NOTE(fitbeard): If this is false, debug information will be displayed but may
 #                 contain some private data, so it is recommended to set it to
 #                 true a production environment.

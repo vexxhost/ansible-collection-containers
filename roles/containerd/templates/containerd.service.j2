@@ -20,7 +20,15 @@ After=network.target local-fs.target
 [Service]
 ExecStartPre=-/sbin/modprobe overlay
 ExecStart=/usr/bin/containerd --config {{ containerd_cfg_file }}
-
+{% if containerd_http_proxy %}
+Environment="HTTP_PROXY={{ containerd_http_proxy }}"
+{% endif %}
+{% if containerd_https_proxy %}
+Environment="HTTPS_PROXY={{ containerd_https_proxy }}"
+{% endif %}
+{% if containerd_no_proxy %}
+Environment="NO_PROXY={{ containerd_no_proxy }}"
+{% endif %}
 Type=notify
 Delegate=yes
 KillMode=process

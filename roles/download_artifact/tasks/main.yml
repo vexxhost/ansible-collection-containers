@@ -34,6 +34,10 @@
   #                 environment passwords in the log.
   no_log: "{{ download_artifact_no_log | bool }}"
   notify: "{{ download_artifact_notify }}"
+  environment:
+    http_proxy: "{{ download_artifact_http_proxy }}"
+    https_proxy: "{{ download_artifact_https_proxy }}"
+    no_proxy: "{{ download_artifact_no_proxy }}"
 
 - name: Extract archive
   when: download_artifact_unarchive and not ansible_check_mode
