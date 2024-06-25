@@ -12,7 +12,9 @@
 # License for the specific language governing permissions and limitations
 # under the License.
 
-docker_version: 24.0.9
+docker_versions: "{{ docker_archive_checksums['amd64'].keys() | list | community.general.version_sort }}"
+docker_version: "{{ docker_versions | last }}"
+
 docker_archive_checksums:
   amd64:
     24.0.9: 692ecfc28333485d184f628b74c25b2894cee9495a51a5418ba60ef95bf733ca
