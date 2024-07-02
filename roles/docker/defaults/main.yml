@@ -31,3 +31,7 @@ docker_cfg_dir: /etc/docker
 docker_cfg_file: "{{ docker_cfg_dir }}/daemon.json"
 docker_storage_dir: /var/lib/docker
 docker_state_dir: /run/docker
+
+docker_http_proxy: "{{ http_proxy | default('') }}"
+docker_https_proxy: "{{ https_proxy | default('') }}"
+docker_no_proxy: "{{ no_proxy | default('') }}"

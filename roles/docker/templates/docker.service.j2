@@ -12,6 +12,15 @@ Type=notify
 # for containers run by docker
 ExecStart=/usr/bin/dockerd -H fd:// --containerd=/run/containerd/containerd.sock
 ExecReload=/bin/kill -s HUP $MAINPID
+{% if docker_http_proxy %}
+Environment="HTTP_PROXY={{ docker_http_proxy }}"
+{% endif %}
+{% if docker_https_proxy %}
+Environment="HTTPS_PROXY={{ docker_https_proxy }}"
+{% endif %}
+{% if docker_no_proxy %}
+Environment="NO_PROXY={{ docker_no_proxy }}"
+{% endif %}
 TimeoutStartSec=0
 RestartSec=2
 Restart=always
