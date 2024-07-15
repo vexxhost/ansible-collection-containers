@@ -1,0 +1,58 @@
+# Copyright (c) 2024 BBC R&D, Inc.
+#
+# Licensed under the Apache License, Version 2.0 (the "License"); you may
+# not use this file except in compliance with the License. You may obtain
+# a copy of the License at
+#
+#      http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+# WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
+# License for the specific language governing permissions and limitations
+# under the License.
+
+- name: Download all binaries required for all roles
+  hosts: "{{ target | default('all') }}"
+  gather_facts: false
+  vars:
+    role_location: "{{ playbook_dir }}/../roles"
+  tasks:
+    - name: Gather minimal facts
+      ansible.builtin.setup:
+        gather_subset: min
+      delegate_to: localhost
+
+    - name: Find all subdirectories in the role location
+      ansible.builtin.find:
+        file_type: directory
+        paths: "{{ role_location }}"
+        recurse: true
+      register: role_paths
+      delegate_to: localhost
+
+    - name: Include default variables from all roles
+      ansible.builtin.include_vars:
+        dir: "{{ item }}"
+      with_items:
+        - "{{ role_paths.files | selectattr('path', 'search', 'defaults') | map(attribute='path') }}"
+        - "{{ role_location }}/download_artifact/vars"
+      delegate_to: localhost
+
+    - name: Generate list of all binaries for all roles
+      vexxhost.containers.binary_downloads:
+        prefixes: "{{ query('varnames', '_download_url$') | map('replace', '_download_url', '') }}"
+      register: binaries
+      delegate_to: localhost
+
+    - name: Download all required binaries
+      ansible.builtin.include_role:
+        name: vexxhost.containers.download_artifact
+      vars:
+        download_artifact_url: "{{ item.url }}"
+        download_artifact_dest: "{{ item.dest }}"
+        download_artifact_checksum: "sha256:{{ item.checksum }}"
+        download_artifact_owner: "{{ ansible_user }}"
+        download_artifact_mode: "0755"
+        download_artifact_unarchive: false
+      with_items: "{{ binaries.downloads }}"

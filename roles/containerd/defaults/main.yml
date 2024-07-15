@@ -12,7 +12,9 @@
 # License for the specific language governing permissions and limitations
 # under the License.
 
-containerd_version: 1.7.9
+containerd_versions: "{{ containerd_archive_checksums['amd64'].keys() | list | community.general.version_sort }}"
+containerd_version: "{{ containerd_versions | last }}"
+
 containerd_archive_checksums:
   amd64:
     1.7.9: ccd5b434393666f6ebbc90eea959ffd3e61958a1e3e1cc830a678f040142d4b0

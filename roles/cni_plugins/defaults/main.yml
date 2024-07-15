@@ -12,7 +12,9 @@
 # License for the specific language governing permissions and limitations
 # under the License.
 
-cni_plugins_version: v1.3.0
+cni_plugins_versions: "{{ cni_plugins_checksums['amd64'].keys() | list | community.general.version_sort }}"
+cni_plugins_version: "{{ cni_plugins_versions | last }}"
+
 cni_plugins_checksums:
   amd64:
     v1.3.0: 754a71ed60a4bd08726c3af705a7d55ee3df03122b12e389fdba4bea35d7dd7e
