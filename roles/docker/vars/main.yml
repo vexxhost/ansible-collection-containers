@@ -14,7 +14,6 @@
 _docker_config:
   exec-root: "{{ docker_state_dir }}"
   data-root: "{{ docker_storage_dir }}"
-  oom-score-adjust: 0
   bridge: none
   default-ulimits:
     nofile:
