@@ -87,6 +87,8 @@
 - job:
     name: ansible-collection-kubernetes-molecule-rockylinux8
     parent: ansible-collection-kubernetes-molecule
+    # https://github.com/vexxhost/ansible-collection-containers/issues/28
+    voting: false
     vars:
       # NOTE(mnaser): Rocky 8 ships with an old Python
       python_use_pyenv: true
@@ -128,6 +130,8 @@
 - job:
     name: ansible-collection-kubernetes-molecule-rockylinux9-containerd
     parent: ansible-collection-kubernetes-molecule-rockylinux9
+    # https://github.com/vexxhost/ansible-collection-containers/issues/27
+    voting: false
     vars:
       tox_envlist: molecule-containerd
 
