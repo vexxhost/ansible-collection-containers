@@ -13,6 +13,10 @@
 # under the License.
 
 - job:
+    name: ansible-collection-kubernetes-linters
+    parent: tox-linters
+
+- job:
     name: ansible-collection-kubernetes-molecule
     parent: tox
     abstract: true
