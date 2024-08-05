@@ -147,6 +147,7 @@
     merge-mode: squash-merge
     check:
       jobs:
+        - ansible-collection-kubernetes-linters
         - ansible-collection-kubernetes-molecule-focal-containerd
         - ansible-collection-kubernetes-molecule-focal-docker
         - ansible-collection-kubernetes-molecule-focal-forget-package
@@ -163,6 +164,7 @@
         - build-ansible-collection
     gate:
       jobs:
+        - ansible-collection-kubernetes-linters
         - ansible-collection-kubernetes-molecule-focal-containerd
         - ansible-collection-kubernetes-molecule-focal-docker
         - ansible-collection-kubernetes-molecule-focal-forget-package
