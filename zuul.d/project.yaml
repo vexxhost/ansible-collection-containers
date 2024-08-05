@@ -77,6 +77,58 @@
     vars:
       tox_envlist: molecule-nerdctl
 
+- job:
+    name: ansible-collection-kubernetes-molecule-rockylinux8
+    parent: ansible-collection-kubernetes-molecule
+    nodeset:
+      nodes:
+        - name: rockylinux8
+          label: rockylinux8-2c-8g
+
+- job:
+    name: ansible-collection-kubernetes-molecule-rockylinux8-containerd
+    parent: ansible-collection-kubernetes-molecule-rockylinux8
+    vars:
+      tox_envlist: molecule-containerd
+
+- job:
+    name: ansible-collection-kubernetes-molecule-rockylinux8-docker
+    parent: ansible-collection-kubernetes-molecule-rockylinux8
+    vars:
+      tox_envlist: molecule-docker
+
+- job:
+    name: ansible-collection-kubernetes-molecule-rockylinux8-nerdctl
+    parent: ansible-collection-kubernetes-molecule-rockylinux8
+    vars:
+      tox_envlist: molecule-nerdctl
+
+- job:
+    name: ansible-collection-kubernetes-molecule-rockylinux9
+    parent: ansible-collection-kubernetes-molecule
+    nodeset:
+      nodes:
+        - name: rockylinux9
+          label: rockylinux9-2c-8g
+
+- job:
+    name: ansible-collection-kubernetes-molecule-rockylinux9-containerd
+    parent: ansible-collection-kubernetes-molecule-rockylinux9
+    vars:
+      tox_envlist: molecule-containerd
+
+- job:
+    name: ansible-collection-kubernetes-molecule-rockylinux9-docker
+    parent: ansible-collection-kubernetes-molecule-rockylinux9
+    vars:
+      tox_envlist: molecule-docker
+
+- job:
+    name: ansible-collection-kubernetes-molecule-rockylinux9-nerdctl
+    parent: ansible-collection-kubernetes-molecule-rockylinux9
+    vars:
+      tox_envlist: molecule-nerdctl
+
 - project:
     merge-mode: squash-merge
     check:
@@ -88,6 +140,12 @@
         - ansible-collection-kubernetes-molecule-jammy-containerd
         - ansible-collection-kubernetes-molecule-jammy-docker
         - ansible-collection-kubernetes-molecule-jammy-nerdctl
+        - ansible-collection-kubernetes-molecule-rockylinux8-containerd
+        - ansible-collection-kubernetes-molecule-rockylinux8-docker
+        - ansible-collection-kubernetes-molecule-rockylinux8-nerdctl
+        - ansible-collection-kubernetes-molecule-rockylinux9-containerd
+        - ansible-collection-kubernetes-molecule-rockylinux9-docker
+        - ansible-collection-kubernetes-molecule-rockylinux9-nerdctl
         - build-ansible-collection
     gate:
       jobs:
@@ -98,6 +156,12 @@
         - ansible-collection-kubernetes-molecule-jammy-containerd
         - ansible-collection-kubernetes-molecule-jammy-docker
         - ansible-collection-kubernetes-molecule-jammy-nerdctl
+        - ansible-collection-kubernetes-molecule-rockylinux8-containerd
+        - ansible-collection-kubernetes-molecule-rockylinux8-docker
+        - ansible-collection-kubernetes-molecule-rockylinux8-nerdctl
+        - ansible-collection-kubernetes-molecule-rockylinux9-containerd
+        - ansible-collection-kubernetes-molecule-rockylinux9-docker
+        - ansible-collection-kubernetes-molecule-rockylinux9-nerdctl
         - build-ansible-collection
     release:
       jobs:
