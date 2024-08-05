@@ -85,6 +85,32 @@
       tox_envlist: molecule-nerdctl
 
 - job:
+    name: ansible-collection-kubernetes-molecule-noble
+    parent: ansible-collection-kubernetes-molecule
+    nodeset:
+      nodes:
+        - name: ubuntu-noble
+          label: noble-2c-8g
+
+- job:
+    name: ansible-collection-kubernetes-molecule-noble-containerd
+    parent: ansible-collection-kubernetes-molecule-noble
+    vars:
+      tox_envlist: molecule-containerd
+
+- job:
+    name: ansible-collection-kubernetes-molecule-noble-docker
+    parent: ansible-collection-kubernetes-molecule-noble
+    vars:
+      tox_envlist: molecule-docker
+
+- job:
+    name: ansible-collection-kubernetes-molecule-noble-nerdctl
+    parent: ansible-collection-kubernetes-molecule-noble
+    vars:
+      tox_envlist: molecule-nerdctl
+
+- job:
     name: ansible-collection-kubernetes-molecule-rockylinux8
     parent: ansible-collection-kubernetes-molecule
     # https://github.com/vexxhost/ansible-collection-containers/issues/28
@@ -159,6 +185,9 @@
         - ansible-collection-kubernetes-molecule-jammy-containerd
         - ansible-collection-kubernetes-molecule-jammy-docker
         - ansible-collection-kubernetes-molecule-jammy-nerdctl
+        - ansible-collection-kubernetes-molecule-noble-containerd
+        - ansible-collection-kubernetes-molecule-noble-docker
+        - ansible-collection-kubernetes-molecule-noble-nerdctl
         - ansible-collection-kubernetes-molecule-rockylinux8-containerd
         - ansible-collection-kubernetes-molecule-rockylinux8-docker
         - ansible-collection-kubernetes-molecule-rockylinux8-nerdctl
