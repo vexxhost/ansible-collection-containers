@@ -1,7 +1,7 @@
 # Ansible collection for containers
 
 This is a collection which contains playbooks and roles which allow you to
-deploy container runtimes using Ansible. This collection is used by the 
+deploy container runtimes using Ansible. This collection is used by the
 [Atmosphere](https://github.com/vexxhost/atmosphere) project.
 
 ## Contributing

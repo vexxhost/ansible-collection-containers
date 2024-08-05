@@ -27,45 +27,45 @@ except ImportError:
     HAS_DOCKER_IMAGE = False
 
 DOCUMENTATION = """
-  name: docker_image
-  short_description: Parse a Docker image reference
-  version_added: 0.13.0
-  description:
-    - Parse a Docker image and return different parts of the reference
-    - This lookup module requires "docker-image-py" to be installed on the
-      Ansible controller.
-  options:
-    _input:
-      type: string
-      required: true
-      description:
-          - Docker image reference to parse
-    part:
-      type: string
-      default: 'ref'
-      options: [name, ref, tag, domain, path]
-      required: true
-      description:
-        - Part of the Docker image reference to return
-    registry:
-      type: string
-      required: false
-      description:
-        - Override the registry in the Docker image reference
-  author:
-    - Mohammed Naser <mnaser@vexxhost.com>
+name: docker_image
+short_description: Parse a Docker image reference
+version_added: 0.13.0
+description:
+  - Parse a Docker image and return different parts of the reference
+  - This lookup module requires "docker-image-py" to be installed on the
+    Ansible controller.
+options:
+  _input:
+    type: string
+    required: true
+    description:
+        - Docker image reference to parse
+  part:
+    type: string
+    default: 'ref'
+    options: [name, ref, tag, domain, path]
+    required: true
+    description:
+      - Part of the Docker image reference to return
+  registry:
+    type: string
+    required: false
+    description:
+      - Override the registry in the Docker image reference
+author:
+  - Mohammed Naser <mnaser@vexxhost.com>
 """
 
 EXAMPLES = """
-  - name: Generate a Docker image reference
-    ansible.builtin.debug:
-      msg: "{{ 'docker.io/library/memcached:1.6.22' | vexxhost.kubernetes.docker_image('name') }}"
+- name: Generate a Docker image reference
+  ansible.builtin.debug:
+    msg: "{{ 'docker.io/library/memcached:1.6.22' | vexxhost.kubernetes.docker_image('name') }}"
 """
 
 RETURN = """
-  _value:
-    description: The part of the Docker image reference
-    type: string
+_value:
+  description: The part of the Docker image reference
+  type: string
 """
 
 

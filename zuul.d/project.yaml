@@ -12,13 +12,205 @@
 # License for the specific language governing permissions and limitations
 # under the License.
 
+- job:
+    name: ansible-collection-kubernetes-linters
+    parent: tox-linters
+
+- job:
+    name: ansible-collection-kubernetes-molecule
+    parent: tox
+    abstract: true
+    pre-run: zuul.d/playbooks/molecule/pre.yml
+    run: zuul.d/playbooks/molecule/run.yml
+
+- job:
+    name: ansible-collection-kubernetes-molecule-focal
+    parent: ansible-collection-kubernetes-molecule
+    vars:
+      # NOTE(mnaser): Ubuntu Focal ships with an old Python
+      python_use_pyenv: true
+    nodeset:
+      nodes:
+        - name: ubuntu-focal
+          label: focal-2c-8g
+
+- job:
+    name: ansible-collection-kubernetes-molecule-focal-containerd
+    parent: ansible-collection-kubernetes-molecule-focal
+    vars:
+      tox_envlist: molecule-containerd
+
+- job:
+    name: ansible-collection-kubernetes-molecule-focal-docker
+    parent: ansible-collection-kubernetes-molecule-focal
+    vars:
+      tox_envlist: molecule-docker
+
+- job:
+    name: ansible-collection-kubernetes-molecule-focal-forget-package
+    parent: ansible-collection-kubernetes-molecule-focal
+    vars:
+      tox_envlist: molecule-forget-package
+
+- job:
+    name: ansible-collection-kubernetes-molecule-focal-nerdctl
+    parent: ansible-collection-kubernetes-molecule-focal
+    vars:
+      tox_envlist: molecule-nerdctl
+
+- job:
+    name: ansible-collection-kubernetes-molecule-jammy
+    parent: ansible-collection-kubernetes-molecule
+    nodeset:
+      nodes:
+        - name: ubuntu-jammy
+          label: jammy-2c-8g
+
+- job:
+    name: ansible-collection-kubernetes-molecule-jammy-containerd
+    parent: ansible-collection-kubernetes-molecule-jammy
+    vars:
+      tox_envlist: molecule-containerd
+
+- job:
+    name: ansible-collection-kubernetes-molecule-jammy-docker
+    parent: ansible-collection-kubernetes-molecule-jammy
+    vars:
+      tox_envlist: molecule-docker
+
+- job:
+    name: ansible-collection-kubernetes-molecule-jammy-nerdctl
+    parent: ansible-collection-kubernetes-molecule-jammy
+    vars:
+      tox_envlist: molecule-nerdctl
+
+- job:
+    name: ansible-collection-kubernetes-molecule-noble
+    parent: ansible-collection-kubernetes-molecule
+    nodeset:
+      nodes:
+        - name: ubuntu-noble
+          label: noble-2c-8g
+
+- job:
+    name: ansible-collection-kubernetes-molecule-noble-containerd
+    parent: ansible-collection-kubernetes-molecule-noble
+    vars:
+      tox_envlist: molecule-containerd
+
+- job:
+    name: ansible-collection-kubernetes-molecule-noble-docker
+    parent: ansible-collection-kubernetes-molecule-noble
+    vars:
+      tox_envlist: molecule-docker
+
+- job:
+    name: ansible-collection-kubernetes-molecule-noble-nerdctl
+    parent: ansible-collection-kubernetes-molecule-noble
+    vars:
+      tox_envlist: molecule-nerdctl
+
+- job:
+    name: ansible-collection-kubernetes-molecule-rockylinux8
+    parent: ansible-collection-kubernetes-molecule
+    # https://github.com/vexxhost/ansible-collection-containers/issues/28
+    voting: false
+    vars:
+      # NOTE(mnaser): Rocky 8 ships with an old Python
+      python_use_pyenv: true
+    nodeset:
+      nodes:
+        - name: rockylinux8
+          label: rockylinux8-2c-8g
+
+- job:
+    name: ansible-collection-kubernetes-molecule-rockylinux8-containerd
+    parent: ansible-collection-kubernetes-molecule-rockylinux8
+    vars:
+      tox_envlist: molecule-containerd
+
+- job:
+    name: ansible-collection-kubernetes-molecule-rockylinux8-docker
+    parent: ansible-collection-kubernetes-molecule-rockylinux8
+    vars:
+      tox_envlist: molecule-docker
+
+- job:
+    name: ansible-collection-kubernetes-molecule-rockylinux8-nerdctl
+    parent: ansible-collection-kubernetes-molecule-rockylinux8
+    vars:
+      tox_envlist: molecule-nerdctl
+
+- job:
+    name: ansible-collection-kubernetes-molecule-rockylinux9
+    parent: ansible-collection-kubernetes-molecule
+    vars:
+      # NOTE(mnaser): `python3-wheel` is not available on Rocky 9.
+      ensure_pip_from_packages: false
+      ensure_pip_from_upstream: true
+    nodeset:
+      nodes:
+        - name: rockylinux9
+          label: rockylinux9-2c-8g
+
+- job:
+    name: ansible-collection-kubernetes-molecule-rockylinux9-containerd
+    parent: ansible-collection-kubernetes-molecule-rockylinux9
+    # https://github.com/vexxhost/ansible-collection-containers/issues/27
+    voting: false
+    vars:
+      tox_envlist: molecule-containerd
+
+- job:
+    name: ansible-collection-kubernetes-molecule-rockylinux9-docker
+    parent: ansible-collection-kubernetes-molecule-rockylinux9
+    vars:
+      tox_envlist: molecule-docker
+
+- job:
+    name: ansible-collection-kubernetes-molecule-rockylinux9-nerdctl
+    parent: ansible-collection-kubernetes-molecule-rockylinux9
+    vars:
+      tox_envlist: molecule-nerdctl
+
 - project:
     merge-mode: squash-merge
     check:
       jobs:
+        - ansible-collection-kubernetes-linters
+        - ansible-collection-kubernetes-molecule-focal-containerd
+        - ansible-collection-kubernetes-molecule-focal-docker
+        - ansible-collection-kubernetes-molecule-focal-forget-package
+        - ansible-collection-kubernetes-molecule-focal-nerdctl
+        - ansible-collection-kubernetes-molecule-jammy-containerd
+        - ansible-collection-kubernetes-molecule-jammy-docker
+        - ansible-collection-kubernetes-molecule-jammy-nerdctl
+        - ansible-collection-kubernetes-molecule-noble-containerd
+        - ansible-collection-kubernetes-molecule-noble-docker
+        - ansible-collection-kubernetes-molecule-noble-nerdctl
+        - ansible-collection-kubernetes-molecule-rockylinux8-containerd
+        - ansible-collection-kubernetes-molecule-rockylinux8-docker
+        - ansible-collection-kubernetes-molecule-rockylinux8-nerdctl
+        - ansible-collection-kubernetes-molecule-rockylinux9-containerd
+        - ansible-collection-kubernetes-molecule-rockylinux9-docker
+        - ansible-collection-kubernetes-molecule-rockylinux9-nerdctl
         - build-ansible-collection
     gate:
       jobs:
+        - ansible-collection-kubernetes-linters
+        - ansible-collection-kubernetes-molecule-focal-containerd
+        - ansible-collection-kubernetes-molecule-focal-docker
+        - ansible-collection-kubernetes-molecule-focal-forget-package
+        - ansible-collection-kubernetes-molecule-focal-nerdctl
+        - ansible-collection-kubernetes-molecule-jammy-containerd
+        - ansible-collection-kubernetes-molecule-jammy-docker
+        - ansible-collection-kubernetes-molecule-jammy-nerdctl
+        - ansible-collection-kubernetes-molecule-rockylinux8-containerd
+        - ansible-collection-kubernetes-molecule-rockylinux8-docker
+        - ansible-collection-kubernetes-molecule-rockylinux8-nerdctl
+        - ansible-collection-kubernetes-molecule-rockylinux9-containerd
+        - ansible-collection-kubernetes-molecule-rockylinux9-docker
+        - ansible-collection-kubernetes-molecule-rockylinux9-nerdctl
         - build-ansible-collection
     release:
       jobs:

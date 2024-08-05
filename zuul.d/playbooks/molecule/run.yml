@@ -12,22 +12,7 @@
 # License for the specific language governing permissions and limitations
 # under the License.
 
-- name: Prepare
-  hosts: all
+- hosts: all
   become: true
-  pre_tasks:
-    - name: Wait for systemd to complete initialization
-      ansible.builtin.command: systemctl is-system-running
-      register: systemctl_status
-      until: >
-        'running' in systemctl_status.stdout or
-        'degraded' in systemctl_status.stdout
-      retries: 30
-      delay: 5
-      changed_when: false
-      failed_when: systemctl_status.rc > 1
-  tasks:
-    - name: Run APT update
-      ansible.builtin.apt:
-        update_cache: yes
-      when: ansible_facts['pkg_mgr'] == "apt"
+  roles:
+    - tox
