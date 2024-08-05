@@ -22,6 +22,9 @@
 - job:
     name: ansible-collection-kubernetes-molecule-focal
     parent: ansible-collection-kubernetes-molecule
+    vars:
+      # NOTE(mnaser): Ubuntu Focal ships with an old Python
+      python_use_pyenv: true
     nodeset:
       nodes:
         - name: ubuntu-focal
@@ -80,6 +83,9 @@
 - job:
     name: ansible-collection-kubernetes-molecule-rockylinux8
     parent: ansible-collection-kubernetes-molecule
+    vars:
+      # NOTE(mnaser): Rocky 8 ships with an old Python
+      python_use_pyenv: true
     nodeset:
       nodes:
         - name: rockylinux8
@@ -108,6 +114,7 @@
     parent: ansible-collection-kubernetes-molecule
     vars:
       # NOTE(mnaser): `python3-wheel` is not available on Rocky 9.
+      ensure_pip_from_packages: false
       ensure_pip_from_upstream: true
     nodeset:
       nodes:
