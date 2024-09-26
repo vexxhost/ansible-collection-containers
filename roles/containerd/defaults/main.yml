@@ -23,7 +23,7 @@ containerd_download_url: "https://github.com/containerd/containerd/releases/down
 containerd_download_dest: "{{ download_artifact_work_directory }}/containerd-{{ containerd_version }}-{{ ansible_facts['system'] | lower }}-{{ download_artifact_goarch }}.tar.gz" # noqa: yaml[line-length]
 containerd_archive_checksum: "{{ containerd_archive_checksums[download_artifact_goarch][containerd_version] }}"
 
-containerd_pause_image: registry.k8s.io/pause:3.8
+containerd_pause_image: registry.k8s.io/pause:3.9
 containerd_insecure_registries: []
 
 # NOTE(mnaser): This is to accomodate for the uninstallation of the old packages
