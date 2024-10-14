@@ -17,15 +17,15 @@ containerd_version: "{{ containerd_versions | last }}"
 
 containerd_archive_checksums:
   amd64:
-    1.7.9: ccd5b434393666f6ebbc90eea959ffd3e61958a1e3e1cc830a678f040142d4b0
+    1.7.17: 04cf937349f82d29fe98553ff45a7e9ea2ed6b81fe6514e3679cf263b50409ff
   arm64:
-    1.7.9: 09ca326dee14e00c439137071747c15cc280480e2c26c1e82698c992dd1889c6
+    1.7.17: 8d9749985796a208e860afe331ec77cb485566104e5cc7c0b5e9e82ec7681969
 
 containerd_download_url: "https://github.com/containerd/containerd/releases/download/v{{ containerd_version }}/containerd-{{ containerd_version }}-{{ ansible_facts['system'] | lower }}-{{ download_artifact_goarch }}.tar.gz" # noqa: yaml[line-length]
 containerd_download_dest: "{{ download_artifact_work_directory }}/containerd-{{ containerd_version }}-{{ ansible_facts['system'] | lower }}-{{ download_artifact_goarch }}.tar.gz" # noqa: yaml[line-length]
 containerd_archive_checksum: "{{ containerd_archive_checksums[download_artifact_goarch][containerd_version] }}"
 
-containerd_pause_image: registry.k8s.io/pause:3.8
+containerd_pause_image: registry.k8s.io/pause:3.9
 containerd_insecure_registries: []
 
 # NOTE(mnaser): This is to accomodate for the uninstallation of the old packages
