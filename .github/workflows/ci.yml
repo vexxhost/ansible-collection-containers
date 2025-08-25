@@ -53,4 +53,4 @@ jobs:
       - uses: astral-sh/setup-uv@bd01e18f51369d5a26f1651c3cb451d3417e3bba # v6.3.1
       - run: sudo swapoff -a
       - name: Run Molecule
-        run: uv molecule test -s ${{ matrix.scenario }}
+        run: uv run molecule test -s ${{ matrix.scenario }}
