@@ -33,3 +33,24 @@ jobs:
         if: always()
         with:
           report_paths: /home/runner/.ansible/collections/ansible_collections/vexxhost/containers/tests/output/junit/*.xml
+
+  molecule:
+    runs-on: ${{ matrix.distro }}
+    strategy:
+      fail-fast: false
+      matrix:
+        distro:
+          - ubuntu-22.04
+          - ubuntu-24.04
+        scenario:
+          - containerd
+          - docker
+          - download-binaries
+          - forget-package
+          - nerdctl
+    steps:
+      - uses: actions/checkout@f43a0e5ff2bd294095638e18286ca9a3d1956744 # v3
+      - uses: astral-sh/setup-uv@bd01e18f51369d5a26f1651c3cb451d3417e3bba # v6.3.1
+      - run: sudo swapoff -a
+      - name: Run Molecule
+        run: uv molecule test -s ${{ matrix.scenario }}

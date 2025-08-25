@@ -20,12 +20,6 @@
     run: zuul.d/playbooks/molecule/run.yml
 
 - job:
-    name: ansible-collection-containers-molecule-download-binaries
-    parent: ansible-collection-containers-molecule
-    vars:
-      tox_envlist: molecule-download-binaries
-
-- job:
     name: ansible-collection-containers-molecule-focal
     parent: ansible-collection-containers-molecule
     vars:
@@ -57,58 +51,6 @@
 - job:
     name: ansible-collection-containers-molecule-focal-nerdctl
     parent: ansible-collection-containers-molecule-focal
-    vars:
-      tox_envlist: molecule-nerdctl
-
-- job:
-    name: ansible-collection-containers-molecule-jammy
-    parent: ansible-collection-containers-molecule
-    nodeset:
-      nodes:
-        - name: ubuntu-jammy
-          label: jammy-2c-8g
-
-- job:
-    name: ansible-collection-containers-molecule-jammy-containerd
-    parent: ansible-collection-containers-molecule-jammy
-    vars:
-      tox_envlist: molecule-containerd
-
-- job:
-    name: ansible-collection-containers-molecule-jammy-docker
-    parent: ansible-collection-containers-molecule-jammy
-    vars:
-      tox_envlist: molecule-docker
-
-- job:
-    name: ansible-collection-containers-molecule-jammy-nerdctl
-    parent: ansible-collection-containers-molecule-jammy
-    vars:
-      tox_envlist: molecule-nerdctl
-
-- job:
-    name: ansible-collection-containers-molecule-noble
-    parent: ansible-collection-containers-molecule
-    nodeset:
-      nodes:
-        - name: ubuntu-noble
-          label: noble-2c-8g
-
-- job:
-    name: ansible-collection-containers-molecule-noble-containerd
-    parent: ansible-collection-containers-molecule-noble
-    vars:
-      tox_envlist: molecule-containerd
-
-- job:
-    name: ansible-collection-containers-molecule-noble-docker
-    parent: ansible-collection-containers-molecule-noble
-    vars:
-      tox_envlist: molecule-docker
-
-- job:
-    name: ansible-collection-containers-molecule-noble-nerdctl
-    parent: ansible-collection-containers-molecule-noble
     vars:
       tox_envlist: molecule-nerdctl
 
@@ -184,12 +126,6 @@
         - ansible-collection-containers-molecule-focal-docker
         - ansible-collection-containers-molecule-focal-forget-package
         - ansible-collection-containers-molecule-focal-nerdctl
-        - ansible-collection-containers-molecule-jammy-containerd
-        - ansible-collection-containers-molecule-jammy-docker
-        - ansible-collection-containers-molecule-jammy-nerdctl
-        - ansible-collection-containers-molecule-noble-containerd
-        - ansible-collection-containers-molecule-noble-docker
-        - ansible-collection-containers-molecule-noble-nerdctl
         - ansible-collection-containers-molecule-rockylinux8-containerd
         - ansible-collection-containers-molecule-rockylinux8-docker
         - ansible-collection-containers-molecule-rockylinux8-nerdctl
@@ -204,9 +140,6 @@
         - ansible-collection-containers-molecule-focal-docker
         - ansible-collection-containers-molecule-focal-forget-package
         - ansible-collection-containers-molecule-focal-nerdctl
-        - ansible-collection-containers-molecule-jammy-containerd
-        - ansible-collection-containers-molecule-jammy-docker
-        - ansible-collection-containers-molecule-jammy-nerdctl
         - ansible-collection-containers-molecule-rockylinux8-containerd
         - ansible-collection-containers-molecule-rockylinux8-docker
         - ansible-collection-containers-molecule-rockylinux8-nerdctl
