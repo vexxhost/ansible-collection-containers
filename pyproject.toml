@@ -19,6 +19,11 @@ classifiers = [
   "Programming Language :: Python :: 3.12",
   "Programming Language :: Python :: Implementation :: CPython",
 ]
+dependencies = [
+  "ansible-core>=2.15.9",
+  "docker-image-py>=0.1.12",
+  "jmespath>=1.0.1",
+]
 
 [dependency-groups]
 dev = [
