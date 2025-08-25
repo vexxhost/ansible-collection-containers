@@ -62,7 +62,6 @@ jobs:
       fail-fast: false
       matrix:
         version:
-          - 8
           - 9
           - 10
         scenario:
