@@ -4,14 +4,10 @@
 dependency:
   name: galaxy
 driver:
-  name: default
-  options:
-    managed: False
-    ansible_connection_options:
-      ansible_become: "true"
-      ansible_connection: local
+  name: docker
 platforms:
   - name: instance
+    image: "quay.io/gotmax23/${MOLECULE_DISTRO_ID:-debian}-systemd:${MOLECULE_DISTRO_VERSION_ID:-bookworm}"
 provisioner:
   name: ansible
   config_options:
