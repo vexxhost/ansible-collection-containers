@@ -15,7 +15,9 @@
 - name: Prepare all hosts
   hosts: all
   become: true
-  roles:
+  tasks:
     - name: Update "apt" cache
-      apt:
+      ansible.builtin.apt:
         update_cache: true
+      when:
+        - ansible_distribution == "Debian"
