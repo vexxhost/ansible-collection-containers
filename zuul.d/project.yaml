@@ -13,10 +13,6 @@
 # under the License.
 
 - job:
-    name: ansible-collection-containers-linters
-    parent: tox-linters
-
-- job:
     name: ansible-collection-containers-molecule
     parent: tox
     abstract: true
@@ -183,7 +179,6 @@
     merge-mode: squash-merge
     check:
       jobs:
-        - ansible-collection-containers-linters
         - ansible-collection-containers-molecule-download-binaries
         - ansible-collection-containers-molecule-focal-containerd
         - ansible-collection-containers-molecule-focal-docker
@@ -204,7 +199,6 @@
         - build-ansible-collection
     gate:
       jobs:
-        - ansible-collection-containers-linters
         - ansible-collection-containers-molecule-download-binaries
         - ansible-collection-containers-molecule-focal-containerd
         - ansible-collection-containers-molecule-focal-docker
