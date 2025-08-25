@@ -101,5 +101,5 @@ jobs:
       - run: sudo swapoff -a
       - run: uv run molecule test -s ${{ matrix.scenario }}
         env:
-          MOLECULE_DISTRO_ID: el
+          MOLECULE_DISTRO_ID: ubuntu
           MOLECULE_DISTRO_VERSION_ID: ${{ matrix.version }}
