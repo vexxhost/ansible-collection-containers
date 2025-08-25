@@ -9,6 +9,8 @@ platforms:
   - name: instance
     image: "quay.io/gotmax23/${MOLECULE_DISTRO_ID:-debian}-systemd:${MOLECULE_DISTRO_VERSION_ID:-bookworm}"
     pre_build_image: true
+    tmpfs:
+      - /var/lib/containerd
 provisioner:
   name: ansible
   config_options:
