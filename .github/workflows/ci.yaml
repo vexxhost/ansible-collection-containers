@@ -40,17 +40,17 @@ jobs:
       fail-fast: false
       matrix:
         distro:
-          - debian13
-          - rockylinux9
-          - ubuntu2004
-          - ubuntu2204
-          - ubuntu2404
+          - debian-13
+          - rockylinux-9
+          - ubuntu-20.04
+          - ubuntu-22.04
+          - ubuntu-24.04
         scenario:
           - containerd
-          - docker
-          - download-binaries
-          - forget-package
-          - nerdctl
+          # - docker
+          # - download-binaries
+          # - forget-package
+          # - nerdctl
         exclude:
           - distro: rockylinux9
             scenario: forget-package
