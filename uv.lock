@@ -12,7 +12,7 @@ resolution-markers = [
 
 [[package]]
 name = "ansible-collection-kubernetes"
-version = "0.0.0"
+version = "1.4.3"
 source = { virtual = "." }
 dependencies = [
     { name = "ansible-core", version = "2.17.13", source = { registry = "https://pypi.org/simple" }, marker = "python_full_version < '3.11'" },
