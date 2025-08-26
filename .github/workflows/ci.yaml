@@ -65,10 +65,8 @@ jobs:
           vagrant plugin install vagrant-libvirt
           sudo cp /usr/share/OVMF/OVMF_VARS_4M.fd /var/lib/libvirt/qemu/nvram/
       - run: sudo usermod -a -G libvirt $USER
-      - run: sg libvirt -c "uv run molecule test --destroy never -s ${{ matrix.scenario }}"
-        env:
-          MOLECULE_DISTRO: ${{ matrix.distro }}
-      - uses: owenthereal/action-upterm@v1
-        if: ${{ failure() }}
-        with:
-          wait-timeout-minutes: 5
+      - run: |
+          sg libvirt -c '
+            export MOLECULE_DISTRO="${{ matrix.distro }}"
+            uv run molecule test --destroy never -s "${{ matrix.scenario }}"
+          '
