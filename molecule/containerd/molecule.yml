@@ -14,7 +14,7 @@ platforms:
     memory: 8192
     provider_raw_config_args:
       - loader = "/usr/share/OVMF/OVMF_CODE_4M.fd"
-      - nvram = "/usr/share/OVMF/OVMF_VARS_4M.fd"
+      - nvram = "/var/lib/libvirt/qemu/nvram/OVMF_VARS_4M.fd"
       - cpu_mode = 'host-passthrough'
       - disk_bus = 'virtio'
       - nic_model_type = 'virtio'
