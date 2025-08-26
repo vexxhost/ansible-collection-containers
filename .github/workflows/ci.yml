@@ -64,7 +64,6 @@ jobs:
         distro:
           - debian13
           - rockylinux9
-          - rockylinux10
           - ubuntu2004
           - ubuntu2204
           - ubuntu2404
