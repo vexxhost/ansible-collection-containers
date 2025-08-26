@@ -64,6 +64,6 @@ jobs:
           sudo apt-get update && sudo apt-get install -y --no-install-recommends qemu-kvm libvirt-dev libvirt-daemon-system ebtables vagrant ruby-fog-libvirt
           vagrant plugin install vagrant-libvirt
       - run: sudo usermod -a -G libvirt $USER
-      - run: sg libvirt -c uv run molecule test --destroy never -s ${{ matrix.scenario }}
+      - run: sg libvirt -c "uv run molecule test --destroy never -s ${{ matrix.scenario }}"
         env:
           MOLECULE_DISTRO: ${{ matrix.distro }}
