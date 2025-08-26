@@ -1,5 +1,28 @@
 # Changelog
 
+## [1.4.4](https://github.com/vexxhost/ansible-collection-containers/compare/v1.4.3...v1.4.4) (2025-08-26)
+
+
+### Bug Fixes
+
+* add missing override_command in molecule.yml configuration 🐛 ([69d98b4](https://github.com/vexxhost/ansible-collection-containers/commit/69d98b4ff7f342620eaa462d62b0846908910bf1))
+* add missing runtime dependency ([f498458](https://github.com/vexxhost/ansible-collection-containers/commit/f498458ac87590c086a05a9ab6ea42a7c5150775))
+* add missing volume mapping for /lib/modules in molecule config 🐛 ([d46c1d2](https://github.com/vexxhost/ansible-collection-containers/commit/d46c1d25c4f5e0235c29d2abe15926c674000a06))
+* add pre_build_image option for molecule instance configuration 🐛 ([6f5c66f](https://github.com/vexxhost/ansible-collection-containers/commit/6f5c66f070da611e4e82463ddb1d284262b3d172))
+* add prepare.yml for host preparation and apt cache update 🐛 ([a756a6d](https://github.com/vexxhost/ansible-collection-containers/commit/a756a6d8a060e2254135ab093bec5eb234637c5d))
+* add tmpfs configuration for containerd in molecule.yml 🐛 ([b1f7f65](https://github.com/vexxhost/ansible-collection-containers/commit/b1f7f65065226c40e2746885cf7a0066f5e471ae))
+* add ubuntu2004 to the nerdctl job matrix configuration 🐛 ([ac72336](https://github.com/vexxhost/ansible-collection-containers/commit/ac723360bd51b58934a78310739e31a11587109b))
+* correct command for running Molecule tests ([5f618b2](https://github.com/vexxhost/ansible-collection-containers/commit/5f618b24a7d421477cdb5b5a9baff214ff39213a))
+* correct condition for apt cache update to use ansible_os_family 🐛 ([5261b9d](https://github.com/vexxhost/ansible-collection-containers/commit/5261b9d28b4a83ae79e663123f3efc501c60a232))
+* remove become directive from converge, prepare, and verify tasks 🐛 ([944b9f0](https://github.com/vexxhost/ansible-collection-containers/commit/944b9f0233c412f9135b67f8542c2e5343c2d5f7))
+* remove deprecated version 8 from matrix in CI workflow 🐛 ([f679c6a](https://github.com/vexxhost/ansible-collection-containers/commit/f679c6aa3c1e60175eee088e200994527ca020d5))
+* remove rockylinux10 from the molecule job matrix configuration 🐛 ([00f0e3e](https://github.com/vexxhost/ansible-collection-containers/commit/00f0e3e3ebf1f7810e0d284014d440c217deb500))
+* Split image versions from URLs to make overriding easier ([#32](https://github.com/vexxhost/ansible-collection-containers/issues/32)) ([9e33f65](https://github.com/vexxhost/ansible-collection-containers/commit/9e33f65bba808820779aa252e3deb50f8909e91b))
+* update ansible-lint version to v25.6.1 ([1a3068d](https://github.com/vexxhost/ansible-collection-containers/commit/1a3068d56c74162a62078d34ac725bdd47daa36c))
+* update MOLECULE_DISTRO_ID to ubuntu for molecule tests 🐛 ([9541c0e](https://github.com/vexxhost/ansible-collection-containers/commit/9541c0e97640d440edaa3cf6ee688bef95a5d6c6))
+* update prepare.yml to use tasks instead of roles for apt cache 🐛 ([5912dcd](https://github.com/vexxhost/ansible-collection-containers/commit/5912dcdb5a5c14c74949f3516c91074939c05ae9))
+* update tmpfs and volumes configuration in molecule.yml 🐛 ([07af3d9](https://github.com/vexxhost/ansible-collection-containers/commit/07af3d965028cf4d7dacc6ca2791a450921abcf3))
+
 ## [1.2.1](https://github.com/vexxhost/ansible-collection-containers/compare/v1.2.0...v1.2.1) (2024-03-13)
 
 

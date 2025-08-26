@@ -1,6 +1,6 @@
 [project]
 name = "ansible-collection-kubernetes"
-version = "1.4.3"
+version = "1.4.4"
 authors = [{ name = "VEXXHOST, Inc.", email = "support@vexxhost.com" }]
 description = "Ansible collection for deploying Kubernetes clusters"
 readme = "README.md"
