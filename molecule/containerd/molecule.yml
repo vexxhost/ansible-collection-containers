@@ -9,10 +9,12 @@ driver:
     name: libvirt
 platforms:
   - name: instance
-    box: boxen/${MOLECULE_DISTRO:-debian-13}
+    box: boxen/${MOLECULE_VAGRANT_BOX:-debian-13}
     cpu: 2
     memory: 8192
     provider_raw_config_args:
+      - loader = "/usr/share/OVMF/OVMF_CODE_4M.fd"
+      - nvram = "/usr/share/OVMF/OVMF_VARS_4M.fd"
       - cpu_mode = 'host-passthrough'
       - disk_bus = 'virtio'
       - nic_model_type = 'virtio'
