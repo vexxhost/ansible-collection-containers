@@ -1,6 +1,6 @@
 namespace: vexxhost
 name: containers
-version: 1.4.3
+version: 1.4.4
 readme: README.md
 authors:
   - Mohammed Naser <mnaser@vexxhost.com>
@@ -8,8 +8,8 @@ description: Ansible collection for deploying container runtimes
 license:
   - GPL-3.0-or-later
 dependencies:
-  ansible.posix: ">=1.3.0"
-  community.general: ">=4.5.0"
+  ansible.posix: '>=1.3.0'
+  community.general: '>=4.5.0'
 tags:
   - application
   - cloud
