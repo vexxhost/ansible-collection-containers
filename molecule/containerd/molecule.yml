@@ -21,8 +21,5 @@ provisioner:
       pipelining: true
     defaults:
       callbacks_enabled: ansible.posix.profile_tasks
-  inventory:
-    links:
-      group_vars: "${MOLECULE_SCENARIO_DIRECTORY}/group_vars"
 verifier:
   name: ansible
