@@ -67,3 +67,7 @@ jobs:
       - run: sg libvirt -c "uv run molecule test --destroy never -s ${{ matrix.scenario }}"
         env:
           MOLECULE_DISTRO: ${{ matrix.distro }}
+      - uses: owenthereal/action-upterm@v1
+        if: ${{ failure() }}
+        with:
+          wait-timeout-minutes: 5
