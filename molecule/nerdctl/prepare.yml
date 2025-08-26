@@ -14,7 +14,6 @@
 
 - name: Prepare all hosts
   hosts: all
-  become: true
   tasks:
     - name: Update "apt" cache
       ansible.builtin.apt:
