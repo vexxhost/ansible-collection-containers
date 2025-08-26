@@ -13,6 +13,7 @@ platforms:
     privileged: true
     cgroupns_mode: host
     volumes:
+      - /lib/modules:/lib/modules:ro
       - /sys/fs/cgroup:/sys/fs/cgroup:rw
 provisioner:
   name: ansible
