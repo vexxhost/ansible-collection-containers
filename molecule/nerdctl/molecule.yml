@@ -11,7 +11,13 @@ platforms:
     pre_build_image: true
     override_command: false
     tmpfs:
-      - /var/lib/containerd
+      - /run
+      - /run/lock
+      - /tmp
+      - /sys/fs/cgroup/systemd
+      - /var/lib/journal
+    volumes:
+      - /sys/fs/cgroup:/sys/fs/cgroup:ro
 provisioner:
   name: ansible
   config_options:
