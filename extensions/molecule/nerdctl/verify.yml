@@ -3,9 +3,9 @@
 
 - name: Verify
   hosts: all
+  become: true
   roles:
-    - vexxhost.containers.cni_plugins
-    - vexxhost.containers.cri_tools
+    - vexxhost.containers.nerdctl
   post_tasks:
     - name: Install the 10-containerd-net.conflist file
       ansible.builtin.copy:
@@ -49,12 +49,10 @@
         name: containerd
         state: restarted
 
-    - name: Run test suite
-      block:
-        - name: Run "critest"
-          ansible.builtin.command: critest
-          register: _critest
-      always:
-        - name: Print out "critest" output
-          ansible.builtin.debug:
-            msg: "{{ _critest.stdout_lines }}"
+    - name: Pull image from registry
+      ansible.builtin.command: nerdctl image pull docker.io/library/alpine:latest
+
+    - name: List images
+      ansible.builtin.command: nerdctl image ls
+      register: images
+      failed_when: not(images.stdout.find('alpine') != -1)

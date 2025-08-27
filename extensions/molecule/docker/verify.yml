@@ -3,6 +3,7 @@
 
 - name: Verify
   hosts: all
+  become: true
   pre_tasks:
     - name: Populate service facts
       ansible.builtin.service_facts:

@@ -14,16 +14,19 @@
 
 - name: Download all binaries required for all roles
   hosts: "{{ target | default('all') }}"
+  become: true
   gather_facts: false
   vars:
     role_location: "{{ playbook_dir }}/../roles"
   tasks:
     - name: Gather minimal facts
+      become: false
       ansible.builtin.setup:
         gather_subset: min
       delegate_to: localhost
 
     - name: Find all subdirectories in the role location
+      become: false
       ansible.builtin.find:
         file_type: directory
         paths: "{{ role_location }}"
@@ -32,6 +35,7 @@
       delegate_to: localhost
 
     - name: Include default variables from all roles
+      become: false
       ansible.builtin.include_vars:
         dir: "{{ item }}"
       with_items:
@@ -40,6 +44,7 @@
       delegate_to: localhost
 
     - name: Generate list of all binaries for all roles
+      become: false
       vexxhost.containers.binary_downloads:
         prefixes: "{{ query('varnames', '_download_url$') | map('replace', '_download_url', '') }}"
       register: binaries

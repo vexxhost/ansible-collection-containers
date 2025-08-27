@@ -1,0 +1,179 @@
+- job:
+    name: ansible-collection-containers-molecule-containerd
+    parent: molecule
+    abstract: true
+    vars:
+      molecule_scenario: containerd
+
+- job:
+    name: ansible-collection-containers-molecule-containerd-debian-13
+    parent: ansible-collection-containers-molecule-containerd
+    nodeset: debian-13
+
+- job:
+    name: ansible-collection-containers-molecule-containerd-rockylinux-9
+    parent: ansible-collection-containers-molecule-containerd
+    nodeset: rockylinux-9
+
+- job:
+    name: ansible-collection-containers-molecule-containerd-ubuntu-focal
+    parent: ansible-collection-containers-molecule-containerd
+    nodeset: ubuntu-focal
+
+- job:
+    name: ansible-collection-containers-molecule-containerd-ubuntu-jammy
+    parent: ansible-collection-containers-molecule-containerd
+    nodeset: ubuntu-jammy
+
+- job:
+    name: ansible-collection-containers-molecule-containerd-ubuntu-noble
+    parent: ansible-collection-containers-molecule-containerd
+    nodeset: ubuntu-noble
+
+- job:
+    name: ansible-collection-containers-molecule-docker
+    parent: molecule
+    abstract: true
+    vars:
+      docker_version: 24.0.9
+      molecule_scenario: docker
+
+- job:
+    name: ansible-collection-containers-molecule-docker-debian-13
+    parent: ansible-collection-containers-molecule-docker
+    nodeset: debian-13
+
+- job:
+    name: ansible-collection-containers-molecule-docker-rockylinux-9
+    parent: ansible-collection-containers-molecule-docker
+    nodeset: rockylinux-9
+
+- job:
+    name: ansible-collection-containers-molecule-docker-ubuntu-focal
+    parent: ansible-collection-containers-molecule-docker
+    nodeset: ubuntu-focal
+- job:
+    name: ansible-collection-containers-molecule-docker-ubuntu-jammy
+    parent: ansible-collection-containers-molecule-docker
+    nodeset: ubuntu-jammy
+
+- job:
+    name: ansible-collection-containers-molecule-docker-ubuntu-noble
+    parent: ansible-collection-containers-molecule-docker
+    nodeset: ubuntu-noble
+
+- job:
+    name: ansible-collection-containers-molecule-download-binaries
+    parent: molecule
+    vars:
+      molecule_scenario: download-binaries
+
+- job:
+    name: ansible-collection-containers-molecule-forget-package
+    parent: molecule
+    abstract: true
+    vars:
+      molecule_scenario: forget-package
+
+- job:
+    name: ansible-collection-containers-molecule-forget-package-debian-13
+    parent: ansible-collection-containers-molecule-forget-package
+    nodeset: debian-13
+
+- job:
+    name: ansible-collection-containers-molecule-forget-package-ubuntu-focal
+    parent: ansible-collection-containers-molecule-forget-package
+    nodeset: ubuntu-focal
+
+- job:
+    name: ansible-collection-containers-molecule-forget-package-ubuntu-jammy
+    parent: ansible-collection-containers-molecule-forget-package
+    nodeset: ubuntu-jammy
+
+- job:
+    name: ansible-collection-containers-molecule-forget-package-ubuntu-noble
+    parent: ansible-collection-containers-molecule-forget-package
+    nodeset: ubuntu-noble
+
+- job:
+    name: ansible-collection-containers-molecule-nerdctl
+    parent: molecule
+    abstract: true
+    vars:
+      molecule_scenario: nerdctl
+
+- job:
+    name: ansible-collection-containers-molecule-nerdctl-debian-13
+    parent: ansible-collection-containers-molecule-nerdctl
+    nodeset: debian-13
+
+- job:
+    name: ansible-collection-containers-molecule-nerdctl-rockylinux-9
+    parent: ansible-collection-containers-molecule-nerdctl
+    nodeset: rockylinux-9
+
+- job:
+    name: ansible-collection-containers-molecule-nerdctl-ubuntu-focal
+    parent: ansible-collection-containers-molecule-nerdctl
+    nodeset: ubuntu-focal
+
+- job:
+    name: ansible-collection-containers-molecule-nerdctl-ubuntu-jammy
+    parent: ansible-collection-containers-molecule-nerdctl
+    nodeset: ubuntu-jammy
+
+- job:
+    name: ansible-collection-containers-molecule-nerdctl-ubuntu-noble
+    parent: ansible-collection-containers-molecule-nerdctl
+    nodeset: ubuntu-noble
+
+- project:
+    merge-mode: squash-merge
+    check:
+      jobs:
+        - ansible-collection-containers-molecule-containerd-debian-13
+        - ansible-collection-containers-molecule-containerd-rockylinux-9
+        - ansible-collection-containers-molecule-containerd-ubuntu-focal
+        - ansible-collection-containers-molecule-containerd-ubuntu-jammy
+        - ansible-collection-containers-molecule-containerd-ubuntu-noble
+        - ansible-collection-containers-molecule-docker-debian-13
+        - ansible-collection-containers-molecule-docker-rockylinux-9
+        - ansible-collection-containers-molecule-docker-ubuntu-focal
+        - ansible-collection-containers-molecule-docker-ubuntu-jammy
+        - ansible-collection-containers-molecule-docker-ubuntu-noble
+        - ansible-collection-containers-molecule-download-binaries
+        - ansible-collection-containers-molecule-forget-package-debian-13
+        - ansible-collection-containers-molecule-forget-package-ubuntu-focal
+        - ansible-collection-containers-molecule-forget-package-ubuntu-jammy
+        - ansible-collection-containers-molecule-forget-package-ubuntu-noble
+        - ansible-collection-containers-molecule-nerdctl-debian-13
+        - ansible-collection-containers-molecule-nerdctl-rockylinux-9
+        - ansible-collection-containers-molecule-nerdctl-ubuntu-focal
+        - ansible-collection-containers-molecule-nerdctl-ubuntu-jammy
+        - ansible-collection-containers-molecule-nerdctl-ubuntu-noble
+        - ansible-test
+        - pre-commit
+    gate:
+      jobs:
+        - ansible-collection-containers-molecule-containerd-debian-13
+        - ansible-collection-containers-molecule-containerd-rockylinux-9
+        - ansible-collection-containers-molecule-containerd-ubuntu-focal
+        - ansible-collection-containers-molecule-containerd-ubuntu-jammy
+        - ansible-collection-containers-molecule-containerd-ubuntu-noble
+        - ansible-collection-containers-molecule-docker-debian-13
+        - ansible-collection-containers-molecule-docker-rockylinux-9
+        - ansible-collection-containers-molecule-docker-ubuntu-focal
+        - ansible-collection-containers-molecule-docker-ubuntu-jammy
+        - ansible-collection-containers-molecule-docker-ubuntu-noble
+        - ansible-collection-containers-molecule-download-binaries
+        - ansible-collection-containers-molecule-forget-package-debian-13
+        - ansible-collection-containers-molecule-forget-package-ubuntu-focal
+        - ansible-collection-containers-molecule-forget-package-ubuntu-jammy
+        - ansible-collection-containers-molecule-forget-package-ubuntu-noble
+        - ansible-collection-containers-molecule-nerdctl-debian-13
+        - ansible-collection-containers-molecule-nerdctl-rockylinux-9
+        - ansible-collection-containers-molecule-nerdctl-ubuntu-focal
+        - ansible-collection-containers-molecule-nerdctl-ubuntu-jammy
+        - ansible-collection-containers-molecule-nerdctl-ubuntu-noble
+        - ansible-test
+        - pre-commit

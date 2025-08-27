@@ -12,7 +12,7 @@ resolution-markers = [
 
 [[package]]
 name = "ansible-collection-kubernetes"
-version = "1.4.3"
+version = "1.4.4"
 source = { virtual = "." }
 dependencies = [
     { name = "ansible-core", version = "2.17.13", source = { registry = "https://pypi.org/simple" }, marker = "python_full_version < '3.11'" },
@@ -39,7 +39,7 @@ requires-dist = [
 
 [package.metadata.requires-dev]
 dev = [
-    { name = "molecule", specifier = ">=25.5.0" },
+    { name = "molecule", specifier = ">=25.9.0rc1" },
     { name = "molecule-plugins", extras = ["docker"], specifier = ">=23.7.0" },
     { name = "pytest", specifier = ">=8.4.1" },
     { name = "pytest-forked", specifier = ">=1.6.0" },
@@ -548,7 +548,7 @@ wheels = [
 
 [[package]]
 name = "molecule"
-version = "25.7.0"
+version = "25.9.0rc1"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
     { name = "ansible-compat" },
@@ -565,9 +565,9 @@ dependencies = [
     { name = "rich" },
     { name = "wcmatch" },
 ]
-sdist = { url = "https://files.pythonhosted.org/packages/3e/7a/5036ea11faa5ef3df8e6f247e122b10c425e54d9f1e06a458f9b1c2de8bc/molecule-25.7.0.tar.gz", hash = "sha256:a258ccaf0a2d15aa0b492fc4a5ad63868bb229e098451cd9a58fbf4015bba510", size = 4444886, upload-time = "2025-07-29T18:50:18.497Z" }
+sdist = { url = "https://files.pythonhosted.org/packages/be/5b/c4d3a77f9259ecffd4a36bd2033ed3c95b9e924a9f0d68e049f645f965e3/molecule-25.9.0rc1.tar.gz", hash = "sha256:7a0ed6aa1eeec38b0d5ad91b0ee110c29016879486c8539af97bb1e76a15474c", size = 4532050, upload-time = "2025-08-21T12:59:57.256Z" }
 wheels = [
-    { url = "https://files.pythonhosted.org/packages/b0/a9/e2b8125230d7739928405f69d3816c5e34588d784685b284ae59423d748c/molecule-25.7.0-py3-none-any.whl", hash = "sha256:4184fdc2494a17fe6aecb144c01e14e6929cc5d2b5461ebfe90ed3fe3f37d01d", size = 140815, upload-time = "2025-07-29T18:50:16.317Z" },
+    { url = "https://files.pythonhosted.org/packages/96/5c/c9a7094ebbf843005758b4a0da87fa5bfdd2d43a58d073806a2d61ae3e4b/molecule-25.9.0rc1-py3-none-any.whl", hash = "sha256:d37ae7266201d487df75f9a1a7877e101d63cf27fe067e2311497884f5fc78e0", size = 152614, upload-time = "2025-08-21T12:59:55.171Z" },
 ]
 
 [[package]]
