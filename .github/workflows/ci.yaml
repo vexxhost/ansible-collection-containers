@@ -73,7 +73,7 @@ jobs:
           cat <<EOF > script.bash
           #!/bin/bash
           #
-          export MOLECULE_DISTRO="${{ matrix.distro }}"
+          export MOLECULE_VAGRANT_BOX="${{ matrix.distro }}"
 
           uv run molecule test --destroy never -s "${{ matrix.scenario }}"
           EOF
