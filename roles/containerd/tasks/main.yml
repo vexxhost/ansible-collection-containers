@@ -12,10 +12,17 @@
 # License for the specific language governing permissions and limitations
 # under the License.
 
-- name: Disable SELinux
-  ansible.posix.selinux:
-    state: disabled
+- name: Set SELinux to permissive mode
   when: ansible_facts['os_family'] == "RedHat"
+  block:
+    - name: Set SELinux to permissive at runtime
+      ansible.builtin.command: setenforce 0
+      changed_when: false
+
+    - name: Persist SELinux permissive mode
+      ansible.posix.selinux:
+        policy: targeted
+        state: permissive
 
 - name: Install AppArmor packages
   ansible.builtin.package:
