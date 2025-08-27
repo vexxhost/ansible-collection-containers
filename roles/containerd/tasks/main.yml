@@ -20,6 +20,12 @@
       - apparmor-utils
   when: ansible_facts['os_family'] == "Debian"
 
+- name: Install SELinux packages
+  ansible.builtin.package:
+    state: present
+    name: container-selinux
+  when: ansible_facts['os_family'] == "RedHat"
+
 - name: Create systemd service file for containerd
   ansible.builtin.template:
     src: containerd.service.j2
