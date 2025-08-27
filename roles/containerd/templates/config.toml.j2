@@ -10,6 +10,9 @@ oom_score = {{ containerd_oom_score }}
   [plugins."io.containerd.grpc.v1.cri"]
     sandbox_image = "{{ containerd_pause_image | vexxhost.containers.docker_image('ref') }}"
     max_container_log_line_size = {{ containerd_max_container_log_line_size }}
+{% if ansible_selinux.status == 'enabled' %}
+    enable_selinux = true
+{% endif %}
   [plugins."io.containerd.grpc.v1.cri".registry]
     [plugins."io.containerd.grpc.v1.cri".registry.mirrors]
       {% for registry in containerd_insecure_registries %}
