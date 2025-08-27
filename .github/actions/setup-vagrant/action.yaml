@@ -4,6 +4,11 @@
 name: Setup Vagrant
 description: Setup Vagrant environment with necessary dependencies
 
+inputs:
+  libvirt-version:
+    description: Libvirt plugin version
+    required: true
+
 runs:
   using: composite
   steps:
@@ -23,9 +28,17 @@ runs:
       shell: bash
       run: sudo apt-get install -y --no-install-recommends dnsmasq-base ebtables libvirt-daemon-system libvirt-dev ovmf qemu-kvm qemu-utils ruby-fog-libvirt vagrant
 
+    - name: Cache vagrant-libvirt plugin
+      uses: actions/cache@v4
+      with:
+        path: |
+          ~/.vagrant.d/gems
+          ~/.vagrant.d/plugins.json
+        key: vagrant-libvirt-${{ inputs.libvirt-version }}
+
     - name: Install vagrant-libvirt plugin
       shell: bash
-      run: vagrant plugin install vagrant-libvirt
+      run: vagrant plugin install vagrant-libvirt --plugin-version "${{ inputs.libvirt-version }}"
 
     # NOTE(mnaser): https://github.com/vagrant-libvirt/vagrant-libvirt/issues/1725
     - name: Configure workaround for OVMF
