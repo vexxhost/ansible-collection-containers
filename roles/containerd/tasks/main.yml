@@ -14,6 +14,7 @@
 
 - name: Disable SELinux
   ansible.posix.selinux:
+    policy: targeted
     state: permissive
   when: ansible_facts['os_family'] == "RedHat"
 
