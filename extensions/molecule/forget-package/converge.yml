@@ -3,5 +3,8 @@
 
 - name: Converge
   hosts: all
+  become: true
   roles:
-    - vexxhost.containers.containerd
+    - role: vexxhost.containers.forget_package
+      vars:
+        forget_package_name: nginx

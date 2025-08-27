@@ -4,4 +4,4 @@
 - name: include playbook
   ansible.builtin.import_playbook: vexxhost.containers.download_binaries
   vars:
-    target: instance
+    target: all
