@@ -7,7 +7,7 @@ description: Setup Vagrant environment with necessary dependencies
 inputs:
   libvirt-version:
     description: Libvirt plugin version
-    required: true
+    default: 0.12.2
 
 runs:
   using: composite
