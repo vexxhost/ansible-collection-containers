@@ -12,6 +12,10 @@
 # License for the specific language governing permissions and limitations
 # under the License.
 
+- name: Disable SELinux
+  ansible.posix.selinux:
+    state: permissive
+
 - name: Install AppArmor packages
   ansible.builtin.package:
     state: present
@@ -19,12 +23,6 @@
       - apparmor
       - apparmor-utils
   when: ansible_facts['os_family'] == "Debian"
-
-- name: Install SELinux packages
-  ansible.builtin.package:
-    state: present
-    name: container-selinux
-  when: ansible_facts['os_family'] == "RedHat"
 
 - name: Create systemd service file for containerd
   ansible.builtin.template:
@@ -42,17 +40,9 @@
     mode: "{{ item.mode | default('0o755') }}"
     owner: root
     group: root
-    seuser: "{{ item.seuser | default(omit) }}"
-    serole: "{{ item.serole | default(omit) }}"
-    setype: "{{ item.setype | default(omit) }}"
-    selevel: "{{ item.selevel | default(omit) }}"
   with_items:
     - path: "{{ containerd_cfg_dir }}"
     - path: "{{ containerd_storage_dir }}"
-      seuser: system_u
-      serole: object_r
-      setype: container_var_lib_t
-      selevel: s0
     - path: "{{ containerd_state_dir }}"
       mode: "0o711"
   notify:
