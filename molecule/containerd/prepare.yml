@@ -1,11 +1,11 @@
 # Copyright (c) 2025 VEXXHOST, Inc.
 # SPDX-License-Identifier: Apache-2.0
 
-# - name: Prepare all hosts
-#   hosts: all
-#   tasks:
-#     - name: Update "apt" cache
-#       ansible.builtin.apt:
-#         update_cache: true
-#       when:
-#         - ansible_os_family == "Debian"
+- name: Prepare all hosts
+  hosts: all
+  tasks: []
+    # - name: Update "apt" cache
+    #   ansible.builtin.apt:
+    #     update_cache: true
+    #   when:
+    #     - ansible_os_family == "Debian"
