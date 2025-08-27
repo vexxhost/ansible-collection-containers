@@ -3,7 +3,6 @@
 
 - name: Prepare
   hosts: all
-  become: true
   tasks:
     - name: Install NGINX
       ansible.builtin.apt:

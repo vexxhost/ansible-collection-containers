@@ -3,7 +3,6 @@
 
 - name: Verify
   hosts: all
-  become: true
   roles:
     - vexxhost.containers.cni_plugins
     - vexxhost.containers.cri_tools

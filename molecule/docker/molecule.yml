@@ -30,6 +30,8 @@ provisioner:
       pipelining: true
     defaults:
       callbacks_enabled: ansible.posix.profile_tasks
+    privilege_escalation:
+      become: true
   inventory:
     links:
       group_vars: "${MOLECULE_SCENARIO_DIRECTORY}/group_vars"

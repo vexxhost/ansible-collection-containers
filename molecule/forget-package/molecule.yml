@@ -30,5 +30,7 @@ provisioner:
       pipelining: true
     defaults:
       callbacks_enabled: ansible.posix.profile_tasks
+    privilege_escalation:
+      become: true
 verifier:
   name: ansible

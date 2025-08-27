@@ -3,6 +3,5 @@
 
 - name: Converge
   hosts: all
-  become: true
   roles:
     - vexxhost.containers.containerd
