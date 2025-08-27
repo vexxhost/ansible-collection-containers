@@ -46,7 +46,6 @@
       delegate_to: localhost
 
     - name: Download all required binaries
-      become: true
       ansible.builtin.include_role:
         name: vexxhost.containers.download_artifact
       vars:
