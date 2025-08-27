@@ -2,6 +2,7 @@
 # SPDX-License-Identifier: Apache-2.0
 
 - name: include playbook
+  become: true
   ansible.builtin.import_playbook: vexxhost.containers.download_binaries
   vars:
     target: instance
