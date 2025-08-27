@@ -4,7 +4,9 @@
 dependency:
   name: galaxy
 driver:
-  name: docker
+  name: vagrant
+  provider:
+    name: libvirt
 platforms:
   - name: instance
     box: boxen/${MOLECULE_VAGRANT_BOX:-debian-13}
