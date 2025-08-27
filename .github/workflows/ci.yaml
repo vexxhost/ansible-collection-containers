@@ -65,7 +65,7 @@ jobs:
           vagrant plugin install vagrant-libvirt
           sudo cp /usr/share/OVMF/OVMF_VARS_4M.fd /var/lib/libvirt/qemu/nvram/
       - run: sudo usermod -a -G libvirt $USER
-      - shell: sg libvirt -c "bash -e {0}"
-        run: |
-          export MOLECULE_VAGRANT_BOX="${{ matrix.distro }}"
-          uv run molecule test --destroy never -s "${{ matrix.scenario }}"
+      - run: uv run molecule test --destroy never -s "${{ matrix.scenario }}"
+        shell: sg libvirt -c "bash -e {0}"
+        env:
+          MOLECULE_VAGRANT_BOX: ${{ matrix.distro }}
