@@ -3,6 +3,7 @@
 
 - name: Verify
   hosts: all
+  become: true
   roles:
     - vexxhost.containers.nerdctl
   post_tasks:

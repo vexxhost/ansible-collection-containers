@@ -7,13 +7,20 @@ driver:
   name: docker
 platforms:
   - name: instance
-    image: geerlingguy/docker-${MOLECULE_DISTRO:-debian13}-ansible
-    pre_build_image: true
-    override_command: false
-    privileged: true
-    cgroupns_mode: host
-    volumes:
-      - /sys/fs/cgroup:/sys/fs/cgroup:rw
+    box: boxen/${MOLECULE_VAGRANT_BOX:-debian-13}
+    cpu: 2
+    memory: 8192
+    provider_raw_config_args:
+      - loader = "/usr/share/OVMF/OVMF_CODE_4M.fd"
+      - nvram = "/var/lib/libvirt/qemu/nvram/OVMF_VARS_4M.fd"
+      - cpu_mode = 'host-passthrough'
+      - disk_bus = 'virtio'
+      - nic_model_type = 'virtio'
+      - video_type = 'virtio'
+      - disk_driver :cache => 'writeback'
+      - "storage :file, bus: 'virtio', cache: 'writeback'"
+    instance_raw_config_args:
+      - vm.box_check_update = false
 provisioner:
   name: ansible
   config_options:

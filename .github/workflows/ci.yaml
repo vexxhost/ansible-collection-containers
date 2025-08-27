@@ -47,10 +47,10 @@ jobs:
           - ubuntu-24.04
         scenario:
           - containerd
-          # - docker
-          # - download-binaries
-          # - forget-package
-          # - nerdctl
+          - docker
+          - download-binaries
+          - forget-package
+          - nerdctl
         exclude:
           - distro: rockylinux9
             scenario: forget-package
