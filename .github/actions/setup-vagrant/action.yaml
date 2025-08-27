@@ -1,0 +1,37 @@
+# Copyright (c) 2025 VEXXHOST, Inc.
+# SPDX-License-Identifier: Apache-2.0
+
+name: Setup Vagrant
+description: Setup Vagrant environment with necessary dependencies
+
+runs:
+  using: composite
+  steps:
+    - name: Download HashiCorp GPG Key
+      shell: bash
+      run: wget -O - https://apt.releases.hashicorp.com/gpg | sudo gpg --dearmor -o /usr/share/keyrings/hashicorp-archive-keyring.gpg
+
+    - name: Add HashiCorp repository
+      shell: bash
+      run: echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/hashicorp-archive-keyring.gpg] https://apt.releases.hashicorp.com $(grep -oP '(?<=UBUNTU_CODENAME=).*' /etc/os-release || lsb_release -cs) main" | sudo tee /etc/apt/sources.list.d/hashicorp.list
+
+    - name: Update APT cache
+      shell: bash
+      run: sudo apt-get update
+
+    - name: Install required packages
+      shell: bash
+      run: sudo apt-get install -y --no-install-recommends dnsmasq-base ebtables libvirt-daemon-system libvirt-dev ovmf qemu-kvm qemu-utils ruby-fog-libvirt vagrant
+
+    - name: Install vagrant-libvirt plugin
+      shell: bash
+      run: vagrant plugin install vagrant-libvirt
+
+    # NOTE(mnaser): https://github.com/vagrant-libvirt/vagrant-libvirt/issues/1725
+    - name: Configure workaround for OVMF
+      shell: bash
+      run: sudo cp /usr/share/OVMF/OVMF_VARS_4M.fd /var/lib/libvirt/qemu/nvram/
+
+    - name: Add runner user to libvirt group
+      shell: bash
+      run: sudo usermod -aG libvirt $USER
