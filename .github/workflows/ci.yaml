@@ -65,19 +65,7 @@ jobs:
           vagrant plugin install vagrant-libvirt
           sudo cp /usr/share/OVMF/OVMF_VARS_4M.fd /var/lib/libvirt/qemu/nvram/
       - run: sudo usermod -a -G libvirt $USER
-      - run: |
-          # tell integration tests to use boxes from the cached location
-          # and also to load the above Vagrantfile. This is done because
-          # sg will not inherit env vars, so it's necessary to set them
-          # in a script that sg runs before calling bundle.
-          cat <<EOF > script.bash
-          #!/bin/bash
-          #
+      - shell: sg libvirt -c "bash -e {0}"
+        run: |
           export MOLECULE_VAGRANT_BOX="${{ matrix.distro }}"
-
           uv run molecule test --destroy never -s "${{ matrix.scenario }}"
-          EOF
-          chmod a+x script.bash
-
-          # run script under libvirt group
-          sg libvirt -c ./script.bash
