@@ -31,8 +31,8 @@ provisioner:
     defaults:
       callbacks_enabled: ansible.posix.profile_tasks
   inventory:
-    group_vars:
-      all:
+    host_vars:
+      instance:
         ansible_become: true
 verifier:
   name: ansible
