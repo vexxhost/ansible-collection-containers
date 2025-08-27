@@ -58,10 +58,8 @@ jobs:
       - uses: actions/checkout@08c6903cd8c0fde910a37f88322edcfb5dd907a8 # v5.0.0
       - uses: astral-sh/setup-uv@4959332f0f014c5280e7eac8b70c90cb574c9f9b # v6.6.0
       - uses: ./.github/actions/setup-vagrant
-      - uses: actions/cache@v4
         with:
-          path: ~/.vagrant.d/boxes
-          key: vagrant-${{ matrix.distro }}
+          cache-key: vagrant-${{ matrix.distro }}
       - run: uv run molecule test --destroy never -s "${{ matrix.scenario }}"
         shell: sg libvirt -c "bash -e {0}"
         env:

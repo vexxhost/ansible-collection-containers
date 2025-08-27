@@ -5,6 +5,9 @@ name: Setup Vagrant
 description: Setup Vagrant environment with necessary dependencies
 
 inputs:
+  cache-key:
+    description: Cache key for Vagrant boxes
+    required: true
   libvirt-version:
     description: Libvirt plugin version
     default: 0.12.2
@@ -48,3 +51,9 @@ runs:
     - name: Add runner user to libvirt group
       shell: bash
       run: sudo usermod -aG libvirt $USER
+
+    - name: Cache Vagrant boxes
+      uses: actions/cache@v4
+      with:
+        path: ~/.vagrant.d/boxes
+        key: ${{ inputs.cache-key }}
