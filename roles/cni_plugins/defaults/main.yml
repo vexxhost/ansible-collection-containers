@@ -18,8 +18,23 @@ cni_plugins_version: "{{ cni_plugins_versions | last }}"
 cni_plugins_checksums:
   amd64:
     v1.3.0: 754a71ed60a4bd08726c3af705a7d55ee3df03122b12e389fdba4bea35d7dd7e
+    v1.4.0: c2485ddb3ffc176578ae30ae58137f0b88e50f7c7f2af7d53a569276b2949a33
+    v1.4.1: 2a0ea7072d1806b8526489bcd3b4847a06ab010ee32ba3c3d4e5a3235d3eb138
+    v1.5.0: 57a18478422cb321370e30a5ee6ce026321289cd9c94353ca697dddd7714f1a5
+    v1.5.1: 77baa2f669980a82255ffa2f2717de823992480271ee778aa51a9c60ae89ff9b
+    v1.6.0: 682b49ff8933a997a52107161f1745f8312364b4c7f605ccdf7a77499130d89d
+    v1.6.2: b8e811578fb66023f90d2e238d80cec3bdfca4b44049af74c374d4fae0f9c090
+    v1.7.0: 6f4c2b1b3dff03747050b65fb0e5b3e8e17fb0eb574ae722fd686a4681c8d778
+    v1.7.1: 1a28a0506bfe5bcdc981caf1a49eeab7e72da8321f1119b7be85f22621013098
   arm64:
-    v1.3.0: 86c4c866a01a8073ad14f6feec74de1fd63669786850c7be47521433f9570902
+    v1.3.0: de7a666fd6ad83a228086bd55756db62ef335a193d1b143d910b69f079e30598
+    v1.4.0: 304d4389d5b732b7a73513d002c4895f731d030682d40653f411e10e39114194
+    v1.4.1: 56fe62d73942cffd8f119d2b8ecb6a062e85f529a3dbfc7aa5cd83c2c01929a7
+    v1.5.0: ab38507efe50c34bc2242a25c5783c19fdfe0376c65a2a91d48174d4f39f1fc2
+    v1.5.1: c2a292714d0fad98a3491ae43df8ad58354b3c0bdf5d5a3e281777967c70fcff
+    v1.6.0: db09ab057ecf60b05ba05cbec38d55b95cc139c7f1078e2e4857cc13af158cee
+    v1.6.2: 01e0e22acc7f7004e4588c1fe1871cc86d7ab562cd858e1761c4641d89ebfaa4
+    v1.7.1: 119fcb508d1ac2149e49a550752f9cd64d023a1d70e189b59c476e4d2bf7c497
 
 cni_plugins_download_url: "https://github.com/containernetworking/plugins/releases/download/{{ cni_plugins_version }}/cni-plugins-{{ ansible_facts['system'] | lower }}-{{ download_artifact_goarch }}-{{ cni_plugins_version }}.tgz" # noqa: yaml[line-length]
 cni_plugins_download_dest: "{{ download_artifact_work_directory }}/kubernetes-cni-{{ cni_plugins_version }}-{{ ansible_facts['system'] | lower }}-{{ download_artifact_goarch }}.tgz" # noqa: yaml[line-length]
