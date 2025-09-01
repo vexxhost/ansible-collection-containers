@@ -24,7 +24,7 @@ gen_block () {
     for arch in amd64 arm64; do
       echo "  ${arch}:"
       for v in "${VERSIONS[@]}"; do
-        echo "    ${v}: $(curl -sSL "https://github.com/kubernetes-sigs/cri-tools/releases/download/v${v}/${tool}-v${v}-linux-${arch}.tar.gz.sha256" | awk '{print $1}')"
+        echo "    v${v}: $(curl -sSL "https://github.com/kubernetes-sigs/cri-tools/releases/download/v${v}/${tool}-v${v}-linux-${arch}.tar.gz.sha256" | awk '{print $1}')"
       done
     done
   }
