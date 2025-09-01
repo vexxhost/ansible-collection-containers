@@ -1,26 +1,13 @@
+# Copyright (c) 2025 VEXXHOST, Inc.
+# SPDX-License-Identifier: Apache-2.0
+
 set -euo pipefail
+
+source "$(dirname "$0")/lib.sh"
 
 FILE=${1:-roles/cni_plugins/defaults/main.yml}
 
-mapfile -t VERSIONS < <(
-  gh api repos/containernetworking/plugins/tags --paginate \
-  | jq -r '
-      [ .[].name
-        | capture("^v(?<major>\\d+)\\.(?<minor>\\d+)\\.(?<patch>\\d+)$")
-        | .major |= tonumber
-        | .minor |= tonumber
-        | .patch |= tonumber
-      ]
-      | sort_by(.major, .minor, .patch)
-      | map(select(
-          (.major > 1)
-          or (.major == 1 and .minor > 3)
-          or (.major == 1 and .minor == 3 and .patch >= 0)
-        ))
-      | map("1." + (.minor|tostring) + "." + (.patch|tostring))
-      | .[]
-  '
-)
+mapfile -t VERSIONS < <(versions_since "containernetworking/plugins" "1.3.0")
 
 gen_block () {
   local arch

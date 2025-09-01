@@ -1,26 +1,13 @@
+# Copyright (c) 2025 VEXXHOST, Inc.
+# SPDX-License-Identifier: Apache-2.0
+
 set -euo pipefail
+
+source "$(dirname "$0")/lib.sh"
 
 FILE=${1:-roles/cri_tools/defaults/main.yml}
 
-mapfile -t VERSIONS < <(
-  gh api repos/kubernetes-sigs/cri-tools/tags --paginate \
-  | jq -r '
-      [ .[].name
-        | capture("^v(?<major>\\d+)\\.(?<minor>\\d+)\\.(?<patch>\\d+)$")
-        | .major |= tonumber
-        | .minor |= tonumber
-        | .patch |= tonumber
-      ]
-      | sort_by(.major, .minor, .patch)
-      | map(select(
-          (.major > 1)
-          or (.major == 1 and .minor > 28)
-          or (.major == 1 and .minor == 28 and .patch >= 0)
-        ))
-      | map("1." + (.minor|tostring) + "." + (.patch|tostring))
-      | .[]
-  '
-)
+mapfile -t VERSIONS < <(versions_since "kubernetes-sigs/cri-tools" "1.28.0")
 
 gen_block () {
   local tool="$1"
