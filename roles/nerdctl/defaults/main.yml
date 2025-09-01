@@ -12,13 +12,37 @@
 # License for the specific language governing permissions and limitations
 # under the License.
 
-nerdctl_version: 2.1.3
+nerdctl_versions: "{{ nerdctl_checksums['amd64'].keys() | list | community.general.version_sort }}"
+nerdctl_version: "{{ nerdctl_versions | last }}"
+
 nerdctl_checksums:
   amd64:
     1.7.4: 71aee9d987b7fad0ff2ade50b038ad7e2356324edc02c54045960a3521b3e6a7
+    1.7.5: 775f8bddd5e93acc4162c568dd6b84d5925549180991b83cfd4b7e33d4844921
+    1.7.6: 0326d6a42dbec5c104ed9d7aa8cbc62727433dbe000cf21cc29d06b22507e0f0
+    1.7.7: 298bb95aee485b24d566115ef7e4e90951dd232447b05de5646a652a23db70a9
+    2.0.0: b3920c4a04dc7972d9e2977147c1ef5c415551802b3c4b0b613ba9d0c46cfbbf
+    2.0.1: 96e5e3ed79f189a986cd33a40b0c817d7b6c7d9238f51a0737213f409e5d82af
+    2.0.2: 1ba015dba039cf6ec2434e88d97707f0b715790e6b7f2e7b6ff7be9200f47bc1
+    2.0.3: 95ff850688a73eace7453f19e74bf4cc8a1f3e458eeb97ef7a6b74de9825df16
+    2.0.4: 2f9d22179868db4f0a1daf2fd65f58a24f8a78efd2d9b17659f56bcdce85efd0
+    2.0.5: a029af80fd4b3de096d1a18779e7ff8369fbd1285944ebc50bdd22ad41438b5d
+    2.1.1: 4fe308bbadf7dd079c058a34cd0bacef3b35c46da88c37f5f125044d90941595
+    2.1.2: 1a08c35d16a0db0b4ac298adb8e4dab4293803d492cbba7aaf862a48a04c463d
     2.1.3: 227390fb16c20d6ab3a7588e5ce72202df1bec7960a2a091599ce3c1bf3fd1d8
   arm64:
     1.7.4: d8df47708ca57b9cd7f498055126ba7dcfc811d9ba43aae1830c93a09e70e22d
+    1.7.5: a53d87fc7d1f4ffeec55e5e08d2397b02ada0d334874c3cece306ad36f828a6c
+    1.7.6: 4fa0a6e936c7a9cb9bb81e784fddaa593cb00afb48b08842e3f0503748c21348
+    1.7.7: 230ad8f4f88100774d123213a427d3d43071e0dcf9f70efbea50ab9efff1cd4c
+    2.0.0: 568b0383996cb51e1a5f97abb3973ebac2af1a26268fc7d9ae0d34165ba033e1
+    2.0.1: cbca59744f6e9dea962e1d3a754294b5e64b53b82f4f7f7d603a591f38545fd5
+    2.0.2: c50ba98be0ef05684948f7873078558504a7cc46ff92cffc764c1625b1cd0d40
+    2.0.3: f2c3f12c99e112cd82ba19ca9b875045c44b2f5a19cecc295ed8d61d415e8851
+    2.0.4: 1f394e3aabc2b202ad17a5ece0495ca554ae3ca346a5dd0aa8344a891734763d
+    2.0.5: ecf57d202fe6fb1fadb68f25f3d1702a424490f8ca0817a902689f1e1fae9e4d
+    2.1.1: 648a053c9b5f4e0da1b474fdec40ea7f5b2eb2c1ce88c7881a7c6c2cd11c6478
+    2.1.2: af6b8c9028fb1adc84b64c9a63da0f369bfa5cfc9176c8b7c58a573d30bd8a74
     2.1.3: 62e34ce6156c942368968c0d88c731cb2f3b341785d584e56a2c175916d5f88d
 
 nerdctl_download_url: "https://github.com/containerd/nerdctl/releases/download/v{{ nerdctl_version }}/nerdctl-{{ nerdctl_version }}-{{ ansible_facts['system'] | lower }}-{{ download_artifact_goarch }}.tar.gz" # noqa: yaml[line-length]
