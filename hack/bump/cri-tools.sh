@@ -6,12 +6,17 @@ mapfile -t VERSIONS < <(
   gh api repos/kubernetes-sigs/cri-tools/tags --paginate \
   | jq -r '
       [ .[].name
-        | capture("^v(?<major>1)\\.(?<minor>\\d+)\\.(?<patch>\\d+)$")
+        | capture("^v(?<major>\\d+)\\.(?<minor>\\d+)\\.(?<patch>\\d+)$")
+        | .major |= tonumber
         | .minor |= tonumber
         | .patch |= tonumber
       ]
-      | map(select(.minor >= 28))
-      | sort_by(.minor, .patch)
+      | sort_by(.major, .minor, .patch)
+      | map(select(
+          (.major > 1)
+          or (.major == 1 and .minor > 28)
+          or (.major == 1 and .minor == 28 and .patch >= 0)
+        ))
       | map("1." + (.minor|tostring) + "." + (.patch|tostring))
       | .[]
   '
