@@ -17,9 +17,25 @@ cri_tools_crictl_version: "{{ cri_tools_crictl_versions | last }}"
 
 cri_tools_crictl_checksums:
   amd64:
-    v1.28.0: 8dc78774f7cbeaf787994d386eec663f0a3cf24de1ea4893598096cb39ef2508
+    1.28.0: 8dc78774f7cbeaf787994d386eec663f0a3cf24de1ea4893598096cb39ef2508
+    1.29.0: d16a1ffb3938f5a19d5c8f45d363bd091ef89c0bc4d44ad16b933eede32fdcbb
+    1.30.0: 3dd03954565808eaeb3a7ffc0e8cb7886a64a9aa94b2bfdfbdc6e2ed94842e49
+    1.30.1: 71873cdeeeb6c9ee0f79c27b45db38066da81f0c30dcda909b4eedc3aff63f59
+    1.31.0: 9daa32308090aedee5a7f2ab1f1428fef6f669a64e993f0b5b98db8ef6edd71b
+    1.31.1: 0a03ba6b1e4c253d63627f8d210b2ea07675a8712587e697657b236d06d7d231
+    1.32.0: f050b71d3a73a91a4e0990b90143ed04dcd100cc66f953736fcb6a2730e283c4
+    1.33.0: 8307399e714626e69d1213a4cd18c8dec3d0201ecdac009b1802115df8973f0f
+    1.34.0: a8ff2a3edb37a98daf3aba7c3b284fe0aa5bff24166d896ab9ef64c8913c9f51
   arm64:
-    v1.28.0: 1ea267f3872f4b7f311963ab43ce6653ceeaf8727206c889b56587c95497e9dd
+    1.28.0: 06e9224e42bc5e23085751e93cccdac89f7930ba6f7a45b8f8fc70ef663c37c4
+    1.29.0: 0b615cfa00c331fb9c4524f3d4058a61cc487b33a3436d1269e7832cf283f925
+    1.30.0: 3769043fc6018a9e1697fcb768bb89ecd429176bd71e849058916f79a46a07a8
+    1.30.1: 61da7c11926fd29b27e191c3c25d64f2cb51d39dff72a7c90c1fbbc8d5c70f85
+    1.31.0: f9879541e92fd302db00b9d28ef617744bb8b8b62520bd4c0479819d7d4ae869
+    1.31.1: cd70f9b2f75c9619f40450d4b6e2c74aaab619917da517eff6787b442f8b0e56
+    1.32.0: f2f4e20658b72d00897f41e4b57093c8080e2d800ee894a5f4351f31d1833e30
+    1.33.0: e1f34918d77d5b4be85d48f5d713ca617698a371b049ea1486000a5e86ab1ff3
+    1.34.0: c31d252e203df5f4cf37f314bd3092eb79087e791631c1e607087c74b6d0423f
 
 cri_tools_crictl_download_url: "https://github.com/kubernetes-sigs/cri-tools/releases/download/{{ cri_tools_crictl_version }}/crictl-{{ cri_tools_crictl_version }}-{{ ansible_facts['system'] | lower }}-{{ download_artifact_goarch }}.tar.gz" # noqa: yaml[line-length]
 cri_tools_crictl_download_dest: "{{ download_artifact_work_directory }}/crictl-{{ cri_tools_crictl_version }}-{{ ansible_facts['system'] | lower }}-{{ download_artifact_goarch }}.tar.gz" # noqa: yaml[line-length]
@@ -30,9 +46,25 @@ cri_tools_critest_version: "{{ cri_tools_critest_versions | last }}"
 
 cri_tools_critest_checksums:
   amd64:
-    v1.28.0: fe47cf954b04e43ca4af8458da0d7708954bf8c73e5bb405d8918b43adfdd2f7
+    1.28.0: fe47cf954b04e43ca4af8458da0d7708954bf8c73e5bb405d8918b43adfdd2f7
+    1.29.0: 5c3c022bce50fa4dc603b2147d371c93841852a82c1351e8639346ca2469a4ca
+    1.30.0: 3cb9a938a63aca4f04bca3193e8de2b59080f5d160209d735a87fd56c8280ca5
+    1.30.1: 924d820764cb15e1631947e2a5fc8ef49f4bf94d849dcf5040dd36198766eedf
+    1.31.0: d465edf8268299098013c9f484aeef7179fe992a03567fc8c430fb1079aaf979
+    1.31.1: fcc20cbf46dfc92c993bae86b0ec5a9987ee1c93ea3b0a3c5d720051aad9ef84
+    1.32.0: 8b35e0b424b19c058c1c506ac922663428a146b4ee5b650709c8e51c4e25ab45
+    1.33.0: 31baec20eda89276b3466ec24cfdfc54258baf27651997db7b5d4205f60ea61b
+    1.34.0: 2e4862d758293cbd83219c561711b5883b3f77d1ef0e31699e5bd811edc1e48b
   arm64:
-    v1.28.0: 12ac3a1e21e136aae037e98fe37ec3264956793ec450af611c9bab3d60486656
+    1.28.0: 935ff82c220c938727e21a12be920db8703ef1a7f3a10b256570b406af4d6af0
+    1.29.0: 272b1eb792d8bd8a4059c88a90d086277f731aa1ea77960f081eb6746b42213f
+    1.30.0: 4302ef9f73e0ecb511851b7fed2147a63cd4328727fb90165d6eb4a659b9114c
+    1.30.1: 749ad51377d17c93b47f4ef192f3cfccabe4c07a76813536b501f785ac6c06a3
+    1.31.0: 0b26b95e5517a47e2c4a16cbd1d076e69252636a805745d31af4d1eb19efca94
+    1.31.1: 2f9dd5452a4ad03f36bb6390773237dbca7a15cb3827b383e4f89d2cf6e75dc8
+    1.32.0: 67eef2cf61f78fea2062c1f94a7273d49d9b1c8dc9bae1b0cb3d4a78fab529a5
+    1.33.0: 7bcd9e9e2ee6ad5eff3b1e66ee7c1b91c0f9cf8e0a6fe5803268cf4c81df6336
+    1.34.0: 06bc7e3844bcf7ea5f87c8f8fa7aa654c7467da45198b9f8490916dfca351b4d
 
 cri_tools_critest_download_url: "https://github.com/kubernetes-sigs/cri-tools/releases/download/{{ cri_tools_critest_version }}/critest-{{ cri_tools_critest_version }}-{{ ansible_facts['system'] | lower }}-{{ download_artifact_goarch }}.tar.gz" # noqa: yaml[line-length]
 cri_tools_critest_download_dest: "{{ download_artifact_work_directory }}/critest-{{ cri_tools_critest_version }}-{{ ansible_facts['system'] | lower }}-{{ download_artifact_goarch }}.tar.gz" # noqa: yaml[line-length]
