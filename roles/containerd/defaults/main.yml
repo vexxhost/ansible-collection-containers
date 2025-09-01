@@ -13,7 +13,11 @@
 # under the License.
 
 containerd_versions: "{{ containerd_archive_checksums['amd64'].keys() | list | community.general.version_sort }}"
-containerd_version: "{{ containerd_versions | last }}"
+
+containerd_latest_v1: "{{ containerd_versions | select('match', '^1\\..*') | list | last }}"
+containerd_latest: "{{ containerd_versions | last }}"
+
+containerd_version: "{{ containerd_latest_v1 if ansible_distribution_release == 'focal' else containerd_latest }}"
 
 containerd_archive_checksums:
   amd64:
@@ -71,7 +75,7 @@ containerd_download_url: "https://github.com/containerd/containerd/releases/down
 containerd_download_dest: "{{ download_artifact_work_directory }}/containerd-{{ containerd_version }}-{{ ansible_facts['system'] | lower }}-{{ download_artifact_goarch }}.tar.gz" # noqa: yaml[line-length]
 containerd_archive_checksum: "{{ containerd_archive_checksums[download_artifact_goarch][containerd_version] }}"
 
-containerd_pause_image_tag: "3.9"
+containerd_pause_image_tag: "3.10"
 containerd_pause_image: "registry.k8s.io/pause:{{ containerd_pause_image_tag }}"
 containerd_insecure_registries: []
 
