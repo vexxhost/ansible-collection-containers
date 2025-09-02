@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.5.0](https://github.com/vexxhost/ansible-collection-containers/compare/v1.4.4...v1.5.0) (2025-09-02)
+
+
+### Features
+
+* bump all components + add automation ([#53](https://github.com/vexxhost/ansible-collection-containers/issues/53)) ([23a3da2](https://github.com/vexxhost/ansible-collection-containers/commit/23a3da260f8848738d00132510decdc97d79134f))
+
 ## [1.4.4](https://github.com/vexxhost/ansible-collection-containers/compare/v1.4.3...v1.4.4) (2025-08-26)
 
 
