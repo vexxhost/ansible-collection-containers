@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.6.0](https://github.com/vexxhost/ansible-collection-containers/compare/v1.5.0...v1.6.0) (2025-09-03)
+
+
+### Features
+
+* switch to py311 and upgrade ansible.posix to 1.6.0 ([#56](https://github.com/vexxhost/ansible-collection-containers/issues/56)) ([838cd40](https://github.com/vexxhost/ansible-collection-containers/commit/838cd404f2141c8df3ca84f5c6a441c3afcc4beb))
+
 ## [1.5.0](https://github.com/vexxhost/ansible-collection-containers/compare/v1.4.4...v1.5.0) (2025-09-02)
 
 
