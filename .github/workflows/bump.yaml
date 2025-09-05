@@ -18,7 +18,7 @@ jobs:
       - uses: peter-evans/create-pull-request@271a8d0340265f705b14b6d32b9829c1cb33d45e # v7.0.8
         with:
           token: ${{ secrets.VEXXHOST_BOT_PAT }}
-          push-to-fork: vexxhost-bot/ansible-collection-kubernetes
+          push-to-fork: vexxhost-bot/ansible-collection-containers
           commit-message: "chore(deps): update cni-plugins"
           signoff: true
           branch: bump/cni-plugins
@@ -41,7 +41,7 @@ jobs:
       - uses: peter-evans/create-pull-request@271a8d0340265f705b14b6d32b9829c1cb33d45e # v7.0.8
         with:
           token: ${{ secrets.VEXXHOST_BOT_PAT }}
-          push-to-fork: vexxhost-bot/ansible-collection-kubernetes
+          push-to-fork: vexxhost-bot/ansible-collection-containers
           commit-message: "chore(deps): update containerd"
           signoff: true
           branch: bump/containerd
@@ -64,7 +64,7 @@ jobs:
       - uses: peter-evans/create-pull-request@271a8d0340265f705b14b6d32b9829c1cb33d45e # v7.0.8
         with:
           token: ${{ secrets.VEXXHOST_BOT_PAT }}
-          push-to-fork: vexxhost-bot/ansible-collection-kubernetes
+          push-to-fork: vexxhost-bot/ansible-collection-containers
           commit-message: "chore(deps): update cri-tools"
           signoff: true
           branch: bump/cri-tools
@@ -87,7 +87,7 @@ jobs:
       - uses: peter-evans/create-pull-request@271a8d0340265f705b14b6d32b9829c1cb33d45e # v7.0.8
         with:
           token: ${{ secrets.VEXXHOST_BOT_PAT }}
-          push-to-fork: vexxhost-bot/ansible-collection-kubernetes
+          push-to-fork: vexxhost-bot/ansible-collection-containers
           commit-message: "chore(deps): update nerdctl"
           signoff: true
           branch: bump/nerdctl
@@ -110,7 +110,7 @@ jobs:
       - uses: peter-evans/create-pull-request@271a8d0340265f705b14b6d32b9829c1cb33d45e # v7.0.8
         with:
           token: ${{ secrets.VEXXHOST_BOT_PAT }}
-          push-to-fork: vexxhost-bot/ansible-collection-kubernetes
+          push-to-fork: vexxhost-bot/ansible-collection-containers
           commit-message: "chore(deps): update runc"
           signoff: true
           branch: bump/runc
