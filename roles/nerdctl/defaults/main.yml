@@ -30,6 +30,7 @@ nerdctl_checksums:
     2.1.1: 4fe308bbadf7dd079c058a34cd0bacef3b35c46da88c37f5f125044d90941595
     2.1.2: 1a08c35d16a0db0b4ac298adb8e4dab4293803d492cbba7aaf862a48a04c463d
     2.1.3: 227390fb16c20d6ab3a7588e5ce72202df1bec7960a2a091599ce3c1bf3fd1d8
+    2.1.4: d6e91d3e275bfb3404959b1f95ed25ff6cd83e3181d17b93afe2d39cd025501d
   arm64:
     1.7.4: d8df47708ca57b9cd7f498055126ba7dcfc811d9ba43aae1830c93a09e70e22d
     1.7.5: a53d87fc7d1f4ffeec55e5e08d2397b02ada0d334874c3cece306ad36f828a6c
@@ -44,6 +45,7 @@ nerdctl_checksums:
     2.1.1: 648a053c9b5f4e0da1b474fdec40ea7f5b2eb2c1ce88c7881a7c6c2cd11c6478
     2.1.2: af6b8c9028fb1adc84b64c9a63da0f369bfa5cfc9176c8b7c58a573d30bd8a74
     2.1.3: 62e34ce6156c942368968c0d88c731cb2f3b341785d584e56a2c175916d5f88d
+    2.1.4: aaf5acbbb044d82038518780cebebcc2a901afde2db465d3581b8987c2d6f6fc
 
 nerdctl_download_url: "https://github.com/containerd/nerdctl/releases/download/v{{ nerdctl_version }}/nerdctl-{{ nerdctl_version }}-{{ ansible_facts['system'] | lower }}-{{ download_artifact_goarch }}.tar.gz" # noqa: yaml[line-length]
 nerdctl_download_dest: "{{ download_artifact_work_directory }}/nerdctl-{{ nerdctl_version }}-{{ ansible_facts['system'] | lower }}-{{ download_artifact_goarch }}.tar.gz" # noqa: yaml[line-length]
