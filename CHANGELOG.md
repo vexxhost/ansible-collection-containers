@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.6.1](https://github.com/vexxhost/ansible-collection-containers/compare/v1.6.0...v1.6.1) (2025-09-15)
+
+
+### Bug Fixes
+
+* change LimitNOFILE again ([524b5b0](https://github.com/vexxhost/ansible-collection-containers/commit/524b5b052e50fa95e9da00f6893e8b865b36a930))
+
 ## [1.6.0](https://github.com/vexxhost/ansible-collection-containers/compare/v1.5.0...v1.6.0) (2025-09-03)
 
 
