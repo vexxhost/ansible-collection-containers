@@ -108,7 +108,7 @@ containerd_max_container_log_line_size: -1
 
 containerd_limit_proc_num: "infinity"
 containerd_limit_core: "infinity"
-containerd_limit_open_file_num: "1024:524288"
+containerd_limit_open_file_num: "{{ '1048576' if ansible_facts['os_family'] == 'RedHat' else 'infinity' }}"
 containerd_limit_mem_lock: "infinity"
 
 containerd_http_proxy: "{{ http_proxy | default('') }}"
