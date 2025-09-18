@@ -1,6 +1,7 @@
 - job:
     name: ansible-collection-containers-molecule
     parent: molecule
+    abstract: true
     nodeset: debian-13
 
 - job:
