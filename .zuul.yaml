@@ -1,6 +1,12 @@
 - job:
-    name: ansible-collection-containers-molecule-containerd
+    name: ansible-collection-containers-molecule
     parent: molecule
+    abstract: true
+    nodeset: debian-13
+
+- job:
+    name: ansible-collection-containers-molecule-containerd
+    parent: ansible-collection-containers-molecule
     abstract: true
     vars:
       molecule_scenario: containerd
@@ -32,7 +38,7 @@
 
 - job:
     name: ansible-collection-containers-molecule-docker
-    parent: molecule
+    parent: ansible-collection-containers-molecule
     abstract: true
     vars:
       docker_version: 24.0.9
@@ -64,13 +70,13 @@
 
 - job:
     name: ansible-collection-containers-molecule-download-binaries
-    parent: molecule
+    parent: ansible-collection-containers-molecule
     vars:
       molecule_scenario: download-binaries
 
 - job:
     name: ansible-collection-containers-molecule-forget-package
-    parent: molecule
+    parent: ansible-collection-containers-molecule
     abstract: true
     vars:
       molecule_scenario: forget-package
@@ -97,7 +103,7 @@
 
 - job:
     name: ansible-collection-containers-molecule-nerdctl
-    parent: molecule
+    parent: ansible-collection-containers-molecule
     abstract: true
     vars:
       molecule_scenario: nerdctl
