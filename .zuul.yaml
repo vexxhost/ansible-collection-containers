@@ -2,7 +2,7 @@
     name: ansible-collection-containers-molecule
     parent: molecule
     abstract: true
-    nodeset: debian-13
+    nodeset: debian-trixie
 
 - job:
     name: ansible-collection-containers-molecule-containerd
@@ -14,7 +14,7 @@
 - job:
     name: ansible-collection-containers-molecule-containerd-debian-13
     parent: ansible-collection-containers-molecule-containerd
-    nodeset: debian-13
+    nodeset: debian-trixie
 
 - job:
     name: ansible-collection-containers-molecule-containerd-rockylinux-9
@@ -47,7 +47,7 @@
 - job:
     name: ansible-collection-containers-molecule-docker-debian-13
     parent: ansible-collection-containers-molecule-docker
-    nodeset: debian-13
+    nodeset: debian-trixie
 
 - job:
     name: ansible-collection-containers-molecule-docker-rockylinux-9
@@ -84,7 +84,7 @@
 - job:
     name: ansible-collection-containers-molecule-forget-package-debian-13
     parent: ansible-collection-containers-molecule-forget-package
-    nodeset: debian-13
+    nodeset: debian-trixie
 
 - job:
     name: ansible-collection-containers-molecule-forget-package-ubuntu-focal
@@ -111,7 +111,7 @@
 - job:
     name: ansible-collection-containers-molecule-nerdctl-debian-13
     parent: ansible-collection-containers-molecule-nerdctl
-    nodeset: debian-13
+    nodeset: debian-trixie
 
 - job:
     name: ansible-collection-containers-molecule-nerdctl-rockylinux-9
