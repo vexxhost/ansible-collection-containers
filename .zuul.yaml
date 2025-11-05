@@ -2,7 +2,7 @@
     name: ansible-collection-containers-molecule
     parent: molecule
     abstract: true
-    nodeset: debian-13
+    nodeset: debian-trixie
 
 - job:
     name: ansible-collection-containers-molecule-containerd
@@ -12,9 +12,9 @@
       molecule_scenario: containerd
 
 - job:
-    name: ansible-collection-containers-molecule-containerd-debian-13
+    name: ansible-collection-containers-molecule-containerd-debian-trixie
     parent: ansible-collection-containers-molecule-containerd
-    nodeset: debian-13
+    nodeset: debian-trixie
 
 - job:
     name: ansible-collection-containers-molecule-containerd-rockylinux-9
@@ -45,9 +45,9 @@
       molecule_scenario: docker
 
 - job:
-    name: ansible-collection-containers-molecule-docker-debian-13
+    name: ansible-collection-containers-molecule-docker-debian-trixie
     parent: ansible-collection-containers-molecule-docker
-    nodeset: debian-13
+    nodeset: debian-trixie
 
 - job:
     name: ansible-collection-containers-molecule-docker-rockylinux-9
@@ -82,9 +82,9 @@
       molecule_scenario: forget-package
 
 - job:
-    name: ansible-collection-containers-molecule-forget-package-debian-13
+    name: ansible-collection-containers-molecule-forget-package-debian-trixie
     parent: ansible-collection-containers-molecule-forget-package
-    nodeset: debian-13
+    nodeset: debian-trixie
 
 - job:
     name: ansible-collection-containers-molecule-forget-package-ubuntu-focal
@@ -109,9 +109,9 @@
       molecule_scenario: nerdctl
 
 - job:
-    name: ansible-collection-containers-molecule-nerdctl-debian-13
+    name: ansible-collection-containers-molecule-nerdctl-debian-trixie
     parent: ansible-collection-containers-molecule-nerdctl
-    nodeset: debian-13
+    nodeset: debian-trixie
 
 - job:
     name: ansible-collection-containers-molecule-nerdctl-rockylinux-9
@@ -137,22 +137,22 @@
     merge-mode: squash-merge
     check:
       jobs:
-        - ansible-collection-containers-molecule-containerd-debian-13
+        - ansible-collection-containers-molecule-containerd-debian-trixie
         - ansible-collection-containers-molecule-containerd-rockylinux-9
         - ansible-collection-containers-molecule-containerd-ubuntu-focal
         - ansible-collection-containers-molecule-containerd-ubuntu-jammy
         - ansible-collection-containers-molecule-containerd-ubuntu-noble
-        - ansible-collection-containers-molecule-docker-debian-13
+        - ansible-collection-containers-molecule-docker-debian-trixie
         - ansible-collection-containers-molecule-docker-rockylinux-9
         - ansible-collection-containers-molecule-docker-ubuntu-focal
         - ansible-collection-containers-molecule-docker-ubuntu-jammy
         - ansible-collection-containers-molecule-docker-ubuntu-noble
         - ansible-collection-containers-molecule-download-binaries
-        - ansible-collection-containers-molecule-forget-package-debian-13
+        - ansible-collection-containers-molecule-forget-package-debian-trixie
         - ansible-collection-containers-molecule-forget-package-ubuntu-focal
         - ansible-collection-containers-molecule-forget-package-ubuntu-jammy
         - ansible-collection-containers-molecule-forget-package-ubuntu-noble
-        - ansible-collection-containers-molecule-nerdctl-debian-13
+        - ansible-collection-containers-molecule-nerdctl-debian-trixie
         - ansible-collection-containers-molecule-nerdctl-rockylinux-9
         - ansible-collection-containers-molecule-nerdctl-ubuntu-focal
         - ansible-collection-containers-molecule-nerdctl-ubuntu-jammy
@@ -161,22 +161,22 @@
         - pre-commit
     gate:
       jobs:
-        - ansible-collection-containers-molecule-containerd-debian-13
+        - ansible-collection-containers-molecule-containerd-debian-trixie
         - ansible-collection-containers-molecule-containerd-rockylinux-9
         - ansible-collection-containers-molecule-containerd-ubuntu-focal
         - ansible-collection-containers-molecule-containerd-ubuntu-jammy
         - ansible-collection-containers-molecule-containerd-ubuntu-noble
-        - ansible-collection-containers-molecule-docker-debian-13
+        - ansible-collection-containers-molecule-docker-debian-trixie
         - ansible-collection-containers-molecule-docker-rockylinux-9
         - ansible-collection-containers-molecule-docker-ubuntu-focal
         - ansible-collection-containers-molecule-docker-ubuntu-jammy
         - ansible-collection-containers-molecule-docker-ubuntu-noble
         - ansible-collection-containers-molecule-download-binaries
-        - ansible-collection-containers-molecule-forget-package-debian-13
+        - ansible-collection-containers-molecule-forget-package-debian-trixie
         - ansible-collection-containers-molecule-forget-package-ubuntu-focal
         - ansible-collection-containers-molecule-forget-package-ubuntu-jammy
         - ansible-collection-containers-molecule-forget-package-ubuntu-noble
-        - ansible-collection-containers-molecule-nerdctl-debian-13
+        - ansible-collection-containers-molecule-nerdctl-debian-trixie
         - ansible-collection-containers-molecule-nerdctl-rockylinux-9
         - ansible-collection-containers-molecule-nerdctl-ubuntu-focal
         - ansible-collection-containers-molecule-nerdctl-ubuntu-jammy
