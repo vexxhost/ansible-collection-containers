@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.6.2](https://github.com/vexxhost/ansible-collection-containers/compare/v1.6.1...v1.6.2) (2025-11-06)
+
+
+### Bug Fixes
+
+* CVE-2024-25621 ([#69](https://github.com/vexxhost/ansible-collection-containers/issues/69)) ([282d603](https://github.com/vexxhost/ansible-collection-containers/commit/282d6031254391cfbf07d5192da87c2be232bc69))
+
 ## [1.6.1](https://github.com/vexxhost/ansible-collection-containers/compare/v1.6.0...v1.6.1) (2025-09-15)
 
 
