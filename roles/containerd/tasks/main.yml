@@ -59,8 +59,13 @@
   with_items:
     - path: "{{ containerd_cfg_dir }}"
     - path: "{{ containerd_storage_dir }}"
+      mode: "0o700"
     - path: "{{ containerd_state_dir }}"
       mode: "0o711"
+    - path: "{{ containerd_state_dir }}/io.containerd.grpc.v1.cri"
+      mode: "0o700"
+    - path: "{{ containerd_state_dir }}/io.containerd.sandbox.controller.v1.shim"
+      mode: "0o700"
   notify:
     - Restart containerd
 
