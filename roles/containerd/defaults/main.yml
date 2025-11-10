@@ -17,7 +17,7 @@ containerd_versions: "{{ containerd_archive_checksums['amd64'].keys() | list | c
 containerd_latest_v1: "{{ containerd_versions | select('match', '^1\\..*') | list | last }}"
 containerd_latest: "{{ containerd_versions | last }}"
 
-containerd_version: "{{ containerd_latest_v1 if ansible_distribution_release == 'focal' else containerd_latest }}"
+containerd_version: "{{ containerd_latest_v1 if ansible_facts['distribution_release'] == 'focal' else containerd_latest }}"
 
 containerd_archive_checksums:
   amd64:
