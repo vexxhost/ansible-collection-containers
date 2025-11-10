@@ -16,7 +16,7 @@
 - name: Set SELinux to permissive mode
   when:
     - ansible_facts['os_family'] == "RedHat"
-    - ansible_selinux.status == "enabled"
+    - ansible_facts['selinux'].status == "enabled"
   block:
     - name: Install SELinux packages
       ansible.builtin.package:
