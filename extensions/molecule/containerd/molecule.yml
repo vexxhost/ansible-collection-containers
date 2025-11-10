@@ -5,7 +5,7 @@ ansible:
   cfg:
     defaults:
       callbacks_enabled: ansible.posix.profile_tasks
-      deprecation_warnings: false
+      inject_facts_as_vars: false
     connection:
       pipelining: true
   executor:
