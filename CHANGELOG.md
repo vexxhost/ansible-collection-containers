@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.6.4](https://github.com/vexxhost/ansible-collection-containers/compare/v1.6.3...v1.6.4) (2025-12-05)
+
+
+### Bug Fixes
+
+* **ci:** disable label adding for fork PRs ([#80](https://github.com/vexxhost/ansible-collection-containers/issues/80)) ([1fad53f](https://github.com/vexxhost/ansible-collection-containers/commit/1fad53f84fd33d97d8a34e5e062c25c433c5cc8c))
+
 ## [1.6.3](https://github.com/vexxhost/ansible-collection-containers/compare/v1.6.2...v1.6.3) (2025-11-12)
 
 
