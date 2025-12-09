@@ -1,5 +1,13 @@
 # Changelog
 
+## [1.6.4](https://github.com/vexxhost/ansible-collection-containers/compare/v1.6.3...v1.6.4) (2025-12-09)
+
+
+### Bug Fixes
+
+* **ci:** disable label adding for fork PRs ([#80](https://github.com/vexxhost/ansible-collection-containers/issues/80)) ([1fad53f](https://github.com/vexxhost/ansible-collection-containers/commit/1fad53f84fd33d97d8a34e5e062c25c433c5cc8c))
+* move docker_config ([#84](https://github.com/vexxhost/ansible-collection-containers/issues/84)) ([f004529](https://github.com/vexxhost/ansible-collection-containers/commit/f0045294d9e7187d2e7fafe2fc5887dd567dae60))
+
 ## [1.6.3](https://github.com/vexxhost/ansible-collection-containers/compare/v1.6.2...v1.6.3) (2025-11-12)
 
 
