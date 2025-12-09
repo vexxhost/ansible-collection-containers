@@ -25,7 +25,5 @@ _docker_config:
   iptables: false
   live-restore: true
   log-opts:
-    max-file: '5'
-    max-size: '50m'
-
-docker_config: {}
+    max-file: "5"
+    max-size: "50m"

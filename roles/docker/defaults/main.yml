@@ -37,3 +37,5 @@ docker_state_dir: /run/docker
 docker_http_proxy: "{{ http_proxy | default('') }}"
 docker_https_proxy: "{{ https_proxy | default('') }}"
 docker_no_proxy: "{{ no_proxy | default('') }}"
+
+docker_config: {}
