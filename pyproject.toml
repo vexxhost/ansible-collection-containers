@@ -1,6 +1,6 @@
 [project]
 name = "ansible-collection-containers"
-version = "1.6.3"
+version = "1.6.4"
 authors = [{ name = "VEXXHOST, Inc.", email = "support@vexxhost.com" }]
 description = "Ansible collection for deploying container components"
 readme = "README.md"
