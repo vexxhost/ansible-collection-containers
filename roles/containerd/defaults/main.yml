@@ -132,3 +132,7 @@ containerd_no_proxy: "{{ no_proxy | default('') }}"
 # NOTE(jrosser): If you need to override the default containerd snapshotter, for example
 # when the underlying filesystem does not support overlayfs, set it here
 containerd_snapshotter: ""
+# From containerd v2.1 the transfer service is used for image pulls which may require a
+# platform explicitly configuring when not using the default snapshotter
+# https://github.com/containerd/containerd/blob/main/docs/cri/config.md#image-pull-configuration-since-containerd-v21
+containerd_snapshotter_platform: ""
