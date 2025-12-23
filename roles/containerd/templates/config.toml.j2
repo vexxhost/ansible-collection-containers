@@ -24,5 +24,18 @@ oom_score = {{ containerd_oom_score }}
       [plugins."io.containerd.grpc.v1.cri".registry.configs."{{ registry }}".tls]
         insecure_skip_verify = true
       {% endfor %}
+
+{% if containerd_snapshotter | length %}
+  {% if containerd_version.split(".")[0] == 1 %}
   [plugins."io.containerd.grpc.v1.cri".containerd]
-    {% if containerd_snapshotter | length %}snapshotter = "{{ containerd_snapshotter }}"{% endif %}
+    snapshotter = "{{ containerd_snapshotter }}"
+  {% else %}
+  [plugins."io.containerd.cri.v1.images"]
+    snapshotter = "{{ containerd_snapshotter }}"
+    {% if containerd_snapshotter_platform | length %}
+  [[plugins."io.containerd.transfer.v1.local".unpack_config]]
+    platform = "{{ containerd_snapshotter_platform }}"
+    snapshotter = "{{ containerd_snapshotter }}"
+    {% endif %}
+  {% endif %}
+{% endif %}
