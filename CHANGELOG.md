@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.6.5](https://github.com/vexxhost/ansible-collection-containers/compare/v1.6.4...v1.6.5) (2026-02-13)
+
+
+### Bug Fixes
+
+* use new format snapshotter config for containerd v2 ([#91](https://github.com/vexxhost/ansible-collection-containers/issues/91)) ([fcc9d76](https://github.com/vexxhost/ansible-collection-containers/commit/fcc9d76031a008f6db3506c26b7ee0f01bc82015))
+
 ## [1.6.4](https://github.com/vexxhost/ansible-collection-containers/compare/v1.6.3...v1.6.4) (2025-12-09)
 
 
