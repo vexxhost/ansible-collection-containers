@@ -18,6 +18,10 @@
     name:
       - apparmor
       - apparmor-utils
+  register: _install_apparmor
+  retries: 5
+  delay: 10
+  until: _install_apparmor is not failed
   when: ansible_facts['os_family'] == "Debian"
 
 - name: Ensure group "docker" exists
