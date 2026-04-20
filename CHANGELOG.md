@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.6.6](https://github.com/vexxhost/ansible-collection-containers/compare/v1.6.5...v1.6.6) (2026-04-20)
+
+
+### Bug Fixes
+
+* **containerd,docker:** add retry logic to package installation tasks ([#114](https://github.com/vexxhost/ansible-collection-containers/issues/114)) ([4494552](https://github.com/vexxhost/ansible-collection-containers/commit/449455236f4f59c9ed633a87d321d7c0748e2cb6))
+
 ## [1.6.5](https://github.com/vexxhost/ansible-collection-containers/compare/v1.6.4...v1.6.5) (2026-04-09)
 
 
