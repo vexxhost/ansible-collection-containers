@@ -28,6 +28,7 @@ cni_plugins_checksums:
     v1.7.1: 1a28a0506bfe5bcdc981caf1a49eeab7e72da8321f1119b7be85f22621013098
     v1.8.0: ab3bda535f9d90766cccc90d3dddb5482003dd744d7f22bcf98186bf8eea8be6
     v1.9.0: 58c03705426e929658f45a851df15a86d06ef680cacbf3f2dc127731ca265c28
+    v1.9.1: b98f74a0f8522f0a83867178729c1aa70f2158f90c45a2ca8fa791db1c76b303
   arm64:
     v1.3.0: de7a666fd6ad83a228086bd55756db62ef335a193d1b143d910b69f079e30598
     v1.4.0: 304d4389d5b732b7a73513d002c4895f731d030682d40653f411e10e39114194
@@ -39,6 +40,7 @@ cni_plugins_checksums:
     v1.7.1: 119fcb508d1ac2149e49a550752f9cd64d023a1d70e189b59c476e4d2bf7c497
     v1.8.0: 57ce466fc3b79db1f19b8f4c63e07a1112306efa53c94fe810a2150dd9e07ddb
     v1.9.0: 2596ef56329dd1269026f46b8df262f09ba43c92dbfb940e1e69fbccccd30a29
+    v1.9.1: 56171987d3947707c3563db2f4001bccaf50fd63468611b9f3cbecb1375ee7ec
 
 cni_plugins_download_url: "https://github.com/containernetworking/plugins/releases/download/{{ cni_plugins_version }}/cni-plugins-{{ ansible_facts['system'] | lower }}-{{ download_artifact_goarch }}-{{ cni_plugins_version }}.tgz" # noqa: yaml[line-length]
 cni_plugins_download_dest: "{{ download_artifact_work_directory }}/kubernetes-cni-{{ cni_plugins_version }}-{{ ansible_facts['system'] | lower }}-{{ download_artifact_goarch }}.tgz" # noqa: yaml[line-length]
