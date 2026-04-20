@@ -9,13 +9,18 @@ jobs:
   cni-plugins:
     runs-on: ubuntu-latest
     steps:
+      - name: Harden the runner (Audit all outbound calls)
+        uses: step-security/harden-runner@a90bcbc6539c36a85cdfeb73f7e2f433735f215b # v2.15.0
+        with:
+          egress-policy: audit
+
       - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
         with:
           token: ${{ secrets.VEXXHOST_BOT_PAT }}
       - run: ./hack/bump/cni-plugins.sh
         env:
           GH_TOKEN: ${{ github.token }}
-      - uses: peter-evans/create-pull-request@5f6978faf089d4d20b00c7766989d076bb2fc7f1 # v8.1.1
+      - uses: step-security/create-pull-request@e604d57b37b404d8bb34d152fa905e45d003a895 # v8.1.0
         with:
           token: ${{ secrets.VEXXHOST_BOT_PAT }}
           push-to-fork: vexxhost-bot/ansible-collection-containers
@@ -32,13 +37,18 @@ jobs:
   containerd:
     runs-on: ubuntu-latest
     steps:
+      - name: Harden the runner (Audit all outbound calls)
+        uses: step-security/harden-runner@a90bcbc6539c36a85cdfeb73f7e2f433735f215b # v2.15.0
+        with:
+          egress-policy: audit
+
       - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
         with:
           token: ${{ secrets.VEXXHOST_BOT_PAT }}
       - run: ./hack/bump/containerd.sh
         env:
           GH_TOKEN: ${{ github.token }}
-      - uses: peter-evans/create-pull-request@5f6978faf089d4d20b00c7766989d076bb2fc7f1 # v8.1.1
+      - uses: step-security/create-pull-request@e604d57b37b404d8bb34d152fa905e45d003a895 # v8.1.0
         with:
           token: ${{ secrets.VEXXHOST_BOT_PAT }}
           push-to-fork: vexxhost-bot/ansible-collection-containers
@@ -55,13 +65,18 @@ jobs:
   cri-tools:
     runs-on: ubuntu-latest
     steps:
+      - name: Harden the runner (Audit all outbound calls)
+        uses: step-security/harden-runner@a90bcbc6539c36a85cdfeb73f7e2f433735f215b # v2.15.0
+        with:
+          egress-policy: audit
+
       - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
         with:
           token: ${{ secrets.VEXXHOST_BOT_PAT }}
       - run: ./hack/bump/cri-tools.sh
         env:
           GH_TOKEN: ${{ github.token }}
-      - uses: peter-evans/create-pull-request@5f6978faf089d4d20b00c7766989d076bb2fc7f1 # v8.1.1
+      - uses: step-security/create-pull-request@e604d57b37b404d8bb34d152fa905e45d003a895 # v8.1.0
         with:
           token: ${{ secrets.VEXXHOST_BOT_PAT }}
           push-to-fork: vexxhost-bot/ansible-collection-containers
@@ -78,13 +93,18 @@ jobs:
   nerdctl:
     runs-on: ubuntu-latest
     steps:
+      - name: Harden the runner (Audit all outbound calls)
+        uses: step-security/harden-runner@a90bcbc6539c36a85cdfeb73f7e2f433735f215b # v2.15.0
+        with:
+          egress-policy: audit
+
       - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
         with:
           token: ${{ secrets.VEXXHOST_BOT_PAT }}
       - run: ./hack/bump/nerdctl.sh
         env:
           GH_TOKEN: ${{ github.token }}
-      - uses: peter-evans/create-pull-request@5f6978faf089d4d20b00c7766989d076bb2fc7f1 # v8.1.1
+      - uses: step-security/create-pull-request@e604d57b37b404d8bb34d152fa905e45d003a895 # v8.1.0
         with:
           token: ${{ secrets.VEXXHOST_BOT_PAT }}
           push-to-fork: vexxhost-bot/ansible-collection-containers
@@ -101,13 +121,18 @@ jobs:
   runc:
     runs-on: ubuntu-latest
     steps:
+      - name: Harden the runner (Audit all outbound calls)
+        uses: step-security/harden-runner@a90bcbc6539c36a85cdfeb73f7e2f433735f215b # v2.15.0
+        with:
+          egress-policy: audit
+
       - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
         with:
           token: ${{ secrets.VEXXHOST_BOT_PAT }}
       - run: ./hack/bump/runc.sh
         env:
           GH_TOKEN: ${{ github.token }}
-      - uses: peter-evans/create-pull-request@5f6978faf089d4d20b00c7766989d076bb2fc7f1 # v8.1.1
+      - uses: step-security/create-pull-request@e604d57b37b404d8bb34d152fa905e45d003a895 # v8.1.0
         with:
           token: ${{ secrets.VEXXHOST_BOT_PAT }}
           push-to-fork: vexxhost-bot/ansible-collection-containers
