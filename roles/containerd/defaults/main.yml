@@ -132,7 +132,15 @@ containerd_max_container_log_line_size: -1
 
 containerd_limit_proc_num: "infinity"
 containerd_limit_core: "infinity"
-containerd_limit_open_file_num: "{{ '1048576' if ansible_facts['os_family'] == 'RedHat' else 'infinity' }}"
+# NOTE: `infinity` resolves to 2,147,483,584 on Linux kernels shipped
+# with Ubuntu 26.04, which is inherited by every container started by
+# containerd v2.x. Workloads that iterate over inherited file
+# descriptors before ``execve`` (for example HAProxy external checks
+# that fork and close fds up to ``RLIMIT_NOFILE``) then spend many
+# seconds in the close loop and time out. Pin the limit to 1,048,576,
+# matching the effective value on older kernels and on Red Hat based
+# distributions.
+containerd_limit_open_file_num: "1048576"
 containerd_limit_mem_lock: "infinity"
 
 containerd_http_proxy: "{{ http_proxy | default('') }}"
