@@ -8,8 +8,8 @@ description: Ansible collection for deploying container runtimes
 license:
   - GPL-3.0-or-later
 dependencies:
-  ansible.posix: '>=2.1.0'
-  community.general: '>=12.0.0'
+  ansible.posix: '>=1.6.0'
+  community.general: '>=4.5.0'
 tags:
   - application
   - cloud
