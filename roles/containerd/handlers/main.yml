@@ -15,7 +15,6 @@
 - name: Reload systemd
   ansible.builtin.systemd:
     daemon_reload: true
-    daemon_reexec: true
 
 - name: Restart containerd
   ansible.builtin.service:

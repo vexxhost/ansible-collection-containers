@@ -95,3 +95,7 @@
     name: containerd
     enabled: true
     state: started
+  register: _containerd_start
+  retries: 5
+  delay: 3
+  until: _containerd_start is succeeded
