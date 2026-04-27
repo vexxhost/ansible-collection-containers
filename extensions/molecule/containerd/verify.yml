@@ -55,6 +55,13 @@
         - name: Run "critest"
           ansible.builtin.command: critest
           register: _critest
+          # NOTE(ricolin): critest pulls images from registry.k8s.io which has
+          # been observed to occasionally reset IPv6 connections, failing a
+          # single spec out of 107. Retry the suite to ride out transient
+          # registry/network flakes.
+          retries: 3
+          delay: 30
+          until: _critest.rc == 0
       always:
         - name: Print out "critest" output
           ansible.builtin.debug:
