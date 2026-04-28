@@ -17,7 +17,20 @@ containerd_versions: "{{ containerd_archive_checksums['amd64'].keys() | list | c
 containerd_latest_v1: "{{ containerd_versions | select('match', '^1\\..*') | list | last }}"
 containerd_latest: "{{ containerd_versions | last }}"
 
-containerd_version: "{{ containerd_latest_v1 if ansible_facts['distribution_release'] == 'focal' else containerd_latest }}"
+# NOTE(ricolin): containerd 1.7.31 unconditionally emits ``abi <abi/3.0>,`` in
+# its default AppArmor profile template, which Ubuntu 20.04 (focal) AppArmor
+# 2.13.x cannot parse, breaking container creation. The regression was fixed
+# upstream in containerd/containerd#13268 and backported to release/1.7 in
+# containerd/containerd#13273, so this exclusion is temporary and only needs
+# to cover the affected 1.7.31 release -- once 1.7.32 ships, focal will
+# automatically pick it up.
+# Reference: https://github.com/containerd/containerd/blob/v1.7.31/contrib/apparmor/template.go#L43
+containerd_focal_excluded_versions:
+  - "1.7.31"
+
+containerd_focal_version: "{{ containerd_versions | select('match', '^1\\..*') | reject('in', containerd_focal_excluded_versions) | list | last }}"
+
+containerd_version: "{{ containerd_focal_version if ansible_facts['distribution_release'] == 'focal' else containerd_latest }}"
 
 containerd_archive_checksums:
   amd64:
