@@ -20,7 +20,7 @@ jobs:
       - run: ./hack/bump/cni-plugins.sh
         env:
           GH_TOKEN: ${{ github.token }}
-      - uses: step-security/create-pull-request@e604d57b37b404d8bb34d152fa905e45d003a895 # v8.1.0
+      - uses: step-security/create-pull-request@50c103da2b9ca12cd5bc013fc6931051a5aa872b # v8.1.1
         with:
           token: ${{ secrets.VEXXHOST_BOT_PAT }}
           push-to-fork: vexxhost-bot/ansible-collection-containers
@@ -48,7 +48,7 @@ jobs:
       - run: ./hack/bump/containerd.sh
         env:
           GH_TOKEN: ${{ github.token }}
-      - uses: step-security/create-pull-request@e604d57b37b404d8bb34d152fa905e45d003a895 # v8.1.0
+      - uses: step-security/create-pull-request@50c103da2b9ca12cd5bc013fc6931051a5aa872b # v8.1.1
         with:
           token: ${{ secrets.VEXXHOST_BOT_PAT }}
           push-to-fork: vexxhost-bot/ansible-collection-containers
@@ -76,7 +76,7 @@ jobs:
       - run: ./hack/bump/cri-tools.sh
         env:
           GH_TOKEN: ${{ github.token }}
-      - uses: step-security/create-pull-request@e604d57b37b404d8bb34d152fa905e45d003a895 # v8.1.0
+      - uses: step-security/create-pull-request@50c103da2b9ca12cd5bc013fc6931051a5aa872b # v8.1.1
         with:
           token: ${{ secrets.VEXXHOST_BOT_PAT }}
           push-to-fork: vexxhost-bot/ansible-collection-containers
@@ -104,7 +104,7 @@ jobs:
       - run: ./hack/bump/nerdctl.sh
         env:
           GH_TOKEN: ${{ github.token }}
-      - uses: step-security/create-pull-request@e604d57b37b404d8bb34d152fa905e45d003a895 # v8.1.0
+      - uses: step-security/create-pull-request@50c103da2b9ca12cd5bc013fc6931051a5aa872b # v8.1.1
         with:
           token: ${{ secrets.VEXXHOST_BOT_PAT }}
           push-to-fork: vexxhost-bot/ansible-collection-containers
@@ -132,7 +132,7 @@ jobs:
       - run: ./hack/bump/runc.sh
         env:
           GH_TOKEN: ${{ github.token }}
-      - uses: step-security/create-pull-request@e604d57b37b404d8bb34d152fa905e45d003a895 # v8.1.0
+      - uses: step-security/create-pull-request@50c103da2b9ca12cd5bc013fc6931051a5aa872b # v8.1.1
         with:
           token: ${{ secrets.VEXXHOST_BOT_PAT }}
           push-to-fork: vexxhost-bot/ansible-collection-containers
