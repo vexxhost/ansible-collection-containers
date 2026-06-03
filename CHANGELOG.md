@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.6.7](https://github.com/vexxhost/ansible-collection-containers/compare/v1.6.6...v1.6.7) (2026-06-02)
+
+
+### Miscellaneous Chores
+
+* release 1.6.7 ([60de740](https://github.com/vexxhost/ansible-collection-containers/commit/60de7405f2a9f15a1a16b70346e49cec56087d81))
+
 ## [1.6.6](https://github.com/vexxhost/ansible-collection-containers/compare/v1.6.5...v1.6.6) (2026-04-20)
 
 
