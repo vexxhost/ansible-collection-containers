@@ -43,7 +43,7 @@ options:
   part:
     type: string
     default: 'ref'
-    options: [name, ref, tag, domain, path]
+    options: [name, ref, digest_ref, tag, digest, domain, path, prefix]
     required: true
     description:
       - Part of the Docker image reference to return
@@ -93,6 +93,10 @@ def docker_image(value, part="ref", registry=None):
             return ref.repository["path"]
         if part == "digest":
             return ref["digest"]
+        if part == "digest_ref":
+            if ref["digest"]:
+                return "{}@{}".format(ref["name"], ref["digest"])
+            return ref.string()
         if part == "prefix":
             path_parts = ref.repository["path"].split("/")[:-1]
             parts = [ref.repository["domain"]] + path_parts
