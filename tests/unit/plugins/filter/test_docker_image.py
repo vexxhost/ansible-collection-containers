@@ -44,6 +44,20 @@ def test_docker_image_ref(test_input, expected):
 @pytest.mark.parametrize(
     "test_input,expected",
     [
+        ("quay.io/vexxhost/glance:zed", "quay.io/vexxhost/glance:zed"),
+        (
+            "k8s.gcr.io/ingress-nginx/controller:v1.1.1@sha256:0bc88eb15f9e7f84e8e56c14fa5735aaa488b840983f87bd79b1054190e660de",  # noqa E501
+            "k8s.gcr.io/ingress-nginx/controller@sha256:0bc88eb15f9e7f84e8e56c14fa5735aaa488b840983f87bd79b1054190e660de",  # noqa E501
+        ),
+    ],
+)
+def test_docker_image_digest_ref(test_input, expected):
+    assert docker_image(test_input, "digest_ref") == expected
+
+
+@pytest.mark.parametrize(
+    "test_input,expected",
+    [
         ("quay.io/vexxhost/glance:zed", "quay.io/vexxhost/glance"),
         (
             "us-docker.pkg.dev/vexxhost-infra/openstack/heat:wallaby",
