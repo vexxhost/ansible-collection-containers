@@ -29,6 +29,10 @@
     state: present
     name:
       - container-selinux
+  register: _install_selinux
+  retries: 5
+  delay: 10
+  until: _install_selinux is not failed
   when: ansible_facts['os_family'] == "RedHat"
 
 - name: Ensure group "docker" exists
