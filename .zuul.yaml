@@ -41,7 +41,7 @@
     parent: ansible-collection-containers-molecule
     abstract: true
     vars:
-      docker_version: 24.0.9
+      docker_version: 29.7.2
       molecule_scenario: docker
 
 - job:

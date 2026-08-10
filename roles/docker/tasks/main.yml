@@ -1,4 +1,4 @@
-# Copyright (c) 2023 VEXXHOST, Inc.
+# Copyright (c) 2026 VEXXHOST, Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License"); you may
 # not use this file except in compliance with the License. You may obtain
@@ -24,6 +24,13 @@
   until: _install_apparmor is not failed
   when: ansible_facts['os_family'] == "Debian"
 
+- name: Install SELinux packages
+  ansible.builtin.package:
+    state: present
+    name:
+      - container-selinux
+  when: ansible_facts['os_family'] == "RedHat"
+
 - name: Ensure group "docker" exists
   ansible.builtin.group:
     name: docker
@@ -33,9 +40,8 @@
   ansible.builtin.template:
     src: docker.service.j2
     dest: /etc/systemd/system/docker.service
-    mode: "0644"
+    mode: "0o644"
   notify:
-    - Reload systemd
     - Restart docker
 
 - name: Create folders for configuration
@@ -56,16 +62,15 @@
   ansible.builtin.copy:
     src: docker.socket
     dest: /usr/lib/systemd/system/docker.socket
-    mode: "0644"
+    mode: "0o644"
   notify:
-    - Reload systemd
     - Restart docker
 
 - name: Create docker daemon config file
   ansible.builtin.copy:
     content: "{{ _docker_config | combine(docker_config, recursive=True) | to_nice_json }}"  # noqa: yaml[line-length]
     dest: "{{ docker_cfg_file }}"
-    mode: "0644"
+    mode: "0o644"
   notify:
     - Restart docker
 

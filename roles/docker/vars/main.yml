@@ -1,4 +1,4 @@
-# Copyright (c) 2023 VEXXHOST, Inc.
+# Copyright (c) 2026 VEXXHOST, Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License"); you may
 # not use this file except in compliance with the License. You may obtain
@@ -14,7 +14,6 @@
 _docker_config:
   exec-root: "{{ docker_state_dir }}"
   data-root: "{{ docker_storage_dir }}"
-  oom-score-adjust: 0
   bridge: none
   default-ulimits:
     nofile:
@@ -23,7 +22,6 @@ _docker_config:
       soft: 1048576
   ip-forward: false
   iptables: false
-  live-restore: true
   log-opts:
     max-file: "5"
     max-size: "50m"
