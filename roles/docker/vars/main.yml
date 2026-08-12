@@ -22,6 +22,7 @@ _docker_config:
       soft: 1048576
   ip-forward: false
   iptables: false
+  live-restore: true
   log-opts:
     max-file: "5"
     max-size: "50m"

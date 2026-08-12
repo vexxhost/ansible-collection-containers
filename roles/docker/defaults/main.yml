@@ -27,6 +27,17 @@ docker_download_url: "https://download.docker.com/linux/static/stable/{{ ansible
 
 docker_download_dest: "{{ download_artifact_work_directory }}/docker-{{ docker_version }}.tgz"
 docker_archive_checksum: "{{ docker_archive_checksums[download_artifact_goarch][docker_version] }}"
+docker_binary_install_dir: "{{ download_artifact_work_directory }}/docker-{{ docker_version }}"
+docker_binaries:
+  - docker
+  - docker-init
+  - dockerd
+  - docker-proxy
+
+# Updating the installed binaries and configuration does not require activating
+# them immediately. Service or node restarts can be performed separately as
+# part of a controlled maintenance operation.
+docker_restart_on_update: false
 
 # NOTE(mnaser): This is to accomodate for the uninstallation of the old packages
 #               that shipped with the operating system

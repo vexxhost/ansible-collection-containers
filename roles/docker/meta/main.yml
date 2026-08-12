@@ -34,6 +34,10 @@ dependencies:
   - role: forget_package
     forget_package_name: "{{ docker_package_name }}"
     when: ansible_facts['pkg_mgr'] == "apt"
+  - role: directory
+    directory_path: "{{ docker_binary_install_dir }}"
+    directory_owner: root
+    directory_mode: "0755"
   - role: download_artifact
     download_artifact_url: "{{ docker_download_url }}"
     download_artifact_dest: "{{ docker_download_dest }}"
@@ -41,7 +45,7 @@ dependencies:
     download_artifact_owner: root
     download_artifact_mode: "0755"
     download_artifact_unarchive: true
-    download_artifact_unarchive_dest: /usr/bin
+    download_artifact_unarchive_dest: "{{ docker_binary_install_dir }}"
     download_artifact_unarchive_include:
       - docker/docker
       - docker/docker-init

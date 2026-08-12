@@ -18,10 +18,10 @@
     name:
       - apparmor
       - apparmor-utils
-  register: _install_apparmor
+  register: docker_install_apparmor
   retries: 5
   delay: 10
-  until: _install_apparmor is not failed
+  until: docker_install_apparmor is not failed
   when: ansible_facts['os_family'] == "Debian"
 
 - name: Install SELinux packages
@@ -29,10 +29,10 @@
     state: present
     name:
       - container-selinux
-  register: _install_selinux
+  register: docker_install_selinux
   retries: 5
   delay: 10
-  until: _install_selinux is not failed
+  until: docker_install_selinux is not failed
   when: ansible_facts['os_family'] == "RedHat"
 
 - name: Ensure group "docker" exists
@@ -40,12 +40,23 @@
     name: docker
     state: present
 
+- name: Create links to Docker binaries
+  ansible.builtin.file:
+    src: "{{ docker_binary_install_dir }}/{{ item }}"
+    dest: "/usr/bin/{{ item }}"
+    state: link
+    force: true
+  loop: "{{ docker_binaries }}"
+  notify:
+    - Restart docker
+
 - name: Create systemd service file for docker
   ansible.builtin.template:
     src: docker.service.j2
     dest: /etc/systemd/system/docker.service
     mode: "0o644"
   notify:
+    - Reload Docker systemd units
     - Restart docker
 
 - name: Create folders for configuration
@@ -68,6 +79,7 @@
     dest: /usr/lib/systemd/system/docker.socket
     mode: "0o644"
   notify:
+    - Reload Docker systemd units
     - Restart docker
 
 - name: Create docker daemon config file
