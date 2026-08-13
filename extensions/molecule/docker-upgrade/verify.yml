@@ -1,0 +1,197 @@
+# Copyright (c) 2026 VEXXHOST, Inc.
+# SPDX-License-Identifier: Apache-2.0
+
+- name: Verify staged Docker upgrade
+  hosts: all
+  become: true
+  vars:
+    docker_upgrade_from_version: 24.0.9
+    docker_upgrade_binary_install_dir: "/var/lib/downloads/docker-{{ docker_version }}"
+    docker_upgrade_binaries:
+      - docker
+      - docker-init
+      - dockerd
+      - docker-proxy
+
+  tasks:
+    - name: Read pre-upgrade state
+      ansible.builtin.slurp:
+        src: /var/lib/docker-upgrade-state.json
+      register: _docker_upgrade_state_file
+
+    - name: Decode pre-upgrade state
+      ansible.builtin.set_fact:
+        _docker_upgrade_before: >-
+          {{ _docker_upgrade_state_file.content | b64decode | from_json }}
+
+    - name: Read current Docker service PID
+      ansible.builtin.command:
+        argv:
+          - systemctl
+          - show
+          - --property=MainPID
+          - --value
+          - docker.service
+      register: _docker_upgrade_dockerd_pid_after
+      changed_when: false
+
+    - name: Read current Docker service invocation ID
+      ansible.builtin.command:
+        argv:
+          - systemctl
+          - show
+          - --property=InvocationID
+          - --value
+          - docker.service
+      register: _docker_upgrade_invocation_id_after
+      changed_when: false
+
+    - name: Read current Docker server version
+      ansible.builtin.command:
+        cmd: >-
+          docker version --format
+          '{% raw %}{{ .Server.Version }}{% endraw %}'
+      register: _docker_upgrade_server_version_after
+      changed_when: false
+
+    - name: Read installed Docker daemon version
+      ansible.builtin.command:
+        argv:
+          - /usr/bin/dockerd
+          - --version
+      register: _docker_upgrade_installed_version
+      changed_when: false
+
+    - name: Inspect installed Docker binary links
+      ansible.builtin.stat:
+        path: "/usr/bin/{{ item }}"
+        follow: false
+      loop: "{{ docker_upgrade_binaries }}"
+      register: _docker_upgrade_binary_links
+
+    - name: Read future Docker daemon configuration
+      ansible.builtin.slurp:
+        src: /etc/docker/daemon.json
+      register: _docker_upgrade_daemon_config_file
+
+    - name: Decode future Docker daemon configuration
+      ansible.builtin.set_fact:
+        _docker_upgrade_daemon_config: >-
+          {{ _docker_upgrade_daemon_config_file.content | b64decode | from_json }}
+
+    - name: Resolve running Docker daemon executable
+      ansible.builtin.command:
+        argv:
+          - readlink
+          - "/proc/{{ _docker_upgrade_before.dockerd_pid }}/exe"
+      register: _docker_upgrade_running_dockerd
+      changed_when: false
+
+    - name: Read running Docker daemon executable inode
+      ansible.builtin.command:
+        argv:
+          - stat
+          - --dereference
+          - --format=%i
+          - "/proc/{{ _docker_upgrade_before.dockerd_pid }}/exe"
+      register: _docker_upgrade_dockerd_executable_inode_after
+      changed_when: false
+
+    - name: Inspect current Docker socket
+      ansible.builtin.stat:
+        path: /run/docker.sock
+        follow: true
+      register: _docker_upgrade_socket_after
+
+    - name: Inspect workload containers after upgrade
+      ansible.builtin.command:
+        argv:
+          - docker
+          - inspect
+          - "{{ item.key }}"
+      loop: "{{ _docker_upgrade_before.containers | dict2items }}"
+      register: _docker_upgrade_inspects_after
+      changed_when: false
+
+    - name: Build current workload state
+      ansible.builtin.set_fact:
+        _docker_upgrade_containers_after: >-
+          {{
+            _docker_upgrade_containers_after | default({}) |
+            combine({
+              item.item.key: {
+                'id': _container.Id,
+                'pid': _container.State.Pid,
+                'running': _container.State.Running,
+                'started_at': _container.State.StartedAt,
+                'restart_count': _container.RestartCount
+              }
+            })
+          }}
+      vars:
+        _container: "{{ (item.stdout | from_json)[0] }}"
+      loop: "{{ _docker_upgrade_inspects_after.results }}"
+
+    - name: Assert Docker daemon was not restarted
+      ansible.builtin.assert:
+        that:
+          - _docker_upgrade_dockerd_pid_after.stdout | int == _docker_upgrade_before.dockerd_pid
+          - _docker_upgrade_invocation_id_after.stdout == _docker_upgrade_before.invocation_id
+          - _docker_upgrade_server_version_after.stdout == docker_upgrade_from_version
+          - _docker_upgrade_server_version_after.stdout == _docker_upgrade_before.server_version
+          - _docker_upgrade_running_dockerd.stdout.startswith('/usr/bin/dockerd')
+          - _docker_upgrade_dockerd_executable_inode_after.stdout | int == _docker_upgrade_before.dockerd_executable_inode
+
+    - name: Assert new Docker daemon is installed for future activation
+      ansible.builtin.assert:
+        that:
+          - docker_version in _docker_upgrade_installed_version.stdout
+          - _docker_upgrade_socket_after.stat.inode == _docker_upgrade_before.socket_inode
+          - _docker_upgrade_daemon_config['live-restore']
+          - "'oom-score-adjust' not in _docker_upgrade_daemon_config"
+
+    - name: Assert Docker binaries point to the staged version
+      ansible.builtin.assert:
+        that:
+          - item.stat.islnk
+          - item.stat.lnk_source == docker_upgrade_binary_install_dir ~ '/' ~ item.item
+      loop: "{{ _docker_upgrade_binary_links.results }}"
+
+    - name: Assert workload containers were neither recreated nor restarted
+      ansible.builtin.assert:
+        that:
+          - _after.id == item.value.id
+          - _after.pid == item.value.pid
+          - _after.started_at == item.value.started_at
+          - _after.restart_count == item.value.restart_count
+          - _after.restart_count == 0
+          - _after.running
+      vars:
+        _after: "{{ _docker_upgrade_containers_after[item.key] }}"
+      loop: "{{ _docker_upgrade_before.containers | dict2items }}"
+
+    - name: Read counter workload progress after upgrade
+      ansible.builtin.command:
+        argv:
+          - docker
+          - exec
+          - molecule-upgrade-busybox
+          - sh
+          - -c
+          - wc -l < /tmp/ticks
+      register: _docker_upgrade_counter_after
+      changed_when: false
+
+    - name: Assert counter workload remained functional
+      ansible.builtin.assert:
+        that:
+          - _docker_upgrade_counter_after.stdout | int > _docker_upgrade_before.counter
+
+    - name: Verify HTTP workload is functional
+      ansible.builtin.uri:
+        url: http://127.0.0.1:18080/
+        return_content: true
+      register: _docker_upgrade_http_after
+      failed_when: >-
+        _docker_upgrade_http_after.status != 200 or
+        'docker-upgrade-ok' not in _docker_upgrade_http_after.content
