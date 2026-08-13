@@ -1,0 +1,251 @@
+# Copyright (c) 2026 VEXXHOST, Inc.
+# SPDX-License-Identifier: Apache-2.0
+
+- name: Prepare Docker upgrade
+  hosts: all
+  become: true
+  vars:
+    docker_upgrade_from_version: 24.0.9
+    docker_upgrade_containers:
+      - molecule-upgrade-busybox
+      - molecule-upgrade-nginx
+    docker_upgrade_binaries:
+      - docker
+      - docker-init
+      - dockerd
+      - docker-proxy
+
+  pre_tasks:
+    - name: Update "apt" cache
+      ansible.builtin.apt:
+        update_cache: true
+      when:
+        - ansible_facts['os_family'] | lower == 'debian'
+
+  roles:
+    - role: vexxhost.containers.docker
+      docker_version: "{{ docker_upgrade_from_version }}"
+      docker_config:
+        oom-score-adjust: 0
+
+  post_tasks:
+    - name: Stop Docker before establishing legacy binary layout
+      ansible.builtin.service:
+        name: docker
+        state: stopped
+
+    - name: Remove versioned Docker binary links
+      ansible.builtin.file:
+        path: "/usr/bin/{{ item }}"
+        state: absent
+      loop: "{{ docker_upgrade_binaries }}"
+
+    - name: Install legacy Docker binaries directly into /usr/bin
+      ansible.builtin.copy:
+        src: "/var/lib/downloads/docker-{{ docker_upgrade_from_version }}/{{ item }}"
+        dest: "/usr/bin/{{ item }}"
+        remote_src: true
+        owner: root
+        group: root
+        mode: "0755"
+      loop: "{{ docker_upgrade_binaries }}"
+
+    - name: Start Docker from legacy binary layout
+      ansible.builtin.service:
+        name: docker
+        state: started
+
+    - name: Create HTTP workload configuration
+      ansible.builtin.copy:
+        dest: /var/lib/docker-upgrade-nginx.conf
+        mode: "0644"
+        content: |
+          server {
+              listen 18080;
+              location / {
+                  return 200 "docker-upgrade-ok\n";
+              }
+          }
+
+    - name: Pull workload images
+      ansible.builtin.command:
+        argv:
+          - docker
+          - image
+          - pull
+          - "{{ item }}"
+      loop:
+        - docker.io/library/busybox:1.36.1
+        - docker.io/library/nginx:1.27.5-alpine
+      changed_when: false
+
+    - name: Start counter workload container
+      ansible.builtin.command:
+        argv:
+          - docker
+          - run
+          - --detach
+          - --name
+          - molecule-upgrade-busybox
+          - docker.io/library/busybox:1.36.1
+          - sh
+          - -c
+          - while true; do date +%s >> /tmp/ticks; sleep 1; done
+      changed_when: true
+
+    - name: Start HTTP workload container
+      ansible.builtin.command:
+        argv:
+          - docker
+          - run
+          - --detach
+          - --name
+          - molecule-upgrade-nginx
+          - --network
+          - host
+          - --mount
+          - type=bind,source=/var/lib/docker-upgrade-nginx.conf,target=/etc/nginx/conf.d/default.conf,readonly
+          - docker.io/library/nginx:1.27.5-alpine
+      changed_when: true
+
+    - name: Wait for the HTTP workload
+      ansible.builtin.uri:
+        url: http://127.0.0.1:18080/
+        return_content: true
+      register: _docker_upgrade_http_before
+      retries: 30
+      delay: 1
+      until: _docker_upgrade_http_before.status == 200
+
+    - name: Read Docker service PID
+      ansible.builtin.command:
+        argv:
+          - systemctl
+          - show
+          - --property=MainPID
+          - --value
+          - docker.service
+      register: _docker_upgrade_dockerd_pid_before
+      changed_when: false
+
+    - name: Read Docker service invocation ID
+      ansible.builtin.command:
+        argv:
+          - systemctl
+          - show
+          - --property=InvocationID
+          - --value
+          - docker.service
+      register: _docker_upgrade_invocation_id_before
+      changed_when: false
+
+    - name: Read running Docker server version
+      ansible.builtin.command:
+        cmd: >-
+          docker version --format
+          '{% raw %}{{ .Server.Version }}{% endraw %}'
+      register: _docker_upgrade_server_version_before
+      changed_when: false
+
+    - name: Read running Docker live-restore state
+      ansible.builtin.command:
+        cmd: >-
+          docker info --format
+          '{% raw %}{{ .LiveRestoreEnabled }}{% endraw %}'
+      register: _docker_upgrade_live_restore_before
+      changed_when: false
+
+    - name: Read legacy Docker daemon configuration
+      ansible.builtin.slurp:
+        src: /etc/docker/daemon.json
+      register: _docker_upgrade_daemon_config_before_file
+
+    - name: Decode legacy Docker daemon configuration
+      ansible.builtin.set_fact:
+        _docker_upgrade_daemon_config_before: >-
+          {{
+            _docker_upgrade_daemon_config_before_file.content |
+            b64decode |
+            from_json
+          }}
+
+    - name: Assert legacy Docker state matches the fleet
+      ansible.builtin.assert:
+        that:
+          - _docker_upgrade_server_version_before.stdout == docker_upgrade_from_version
+          - _docker_upgrade_live_restore_before.stdout | bool
+          - _docker_upgrade_daemon_config_before['live-restore']
+          - _docker_upgrade_daemon_config_before['oom-score-adjust'] == 0
+
+    - name: Read running Docker daemon executable inode
+      ansible.builtin.command:
+        argv:
+          - stat
+          - --dereference
+          - --format=%i
+          - "/proc/{{ _docker_upgrade_dockerd_pid_before.stdout }}/exe"
+      register: _docker_upgrade_dockerd_executable_inode_before
+      changed_when: false
+
+    - name: Inspect Docker socket
+      ansible.builtin.stat:
+        path: /run/docker.sock
+        follow: true
+      register: _docker_upgrade_socket_before
+
+    - name: Inspect workload containers
+      ansible.builtin.command:
+        argv:
+          - docker
+          - inspect
+          - "{{ item }}"
+      loop: "{{ docker_upgrade_containers }}"
+      register: _docker_upgrade_inspects_before
+      changed_when: false
+
+    - name: Read counter workload progress
+      ansible.builtin.command:
+        argv:
+          - docker
+          - exec
+          - molecule-upgrade-busybox
+          - sh
+          - -c
+          - wc -l < /tmp/ticks
+      register: _docker_upgrade_counter_before
+      changed_when: false
+
+    - name: Build workload state snapshot
+      ansible.builtin.set_fact:
+        _docker_upgrade_containers_before: >-
+          {{
+            _docker_upgrade_containers_before | default({}) |
+            combine({
+              item.item: {
+                'id': _container.Id,
+                'pid': _container.State.Pid,
+                'started_at': _container.State.StartedAt,
+                'restart_count': _container.RestartCount
+              }
+            })
+          }}
+      vars:
+        _container: "{{ (item.stdout | from_json)[0] }}"
+      loop: "{{ _docker_upgrade_inspects_before.results }}"
+
+    - name: Save pre-upgrade state
+      ansible.builtin.copy:
+        dest: /var/lib/docker-upgrade-state.json
+        mode: "0600"
+        content: >-
+          {{
+            {
+              'dockerd_pid': _docker_upgrade_dockerd_pid_before.stdout | int,
+              'invocation_id': _docker_upgrade_invocation_id_before.stdout,
+              'server_version': _docker_upgrade_server_version_before.stdout,
+              'dockerd_executable_inode': _docker_upgrade_dockerd_executable_inode_before.stdout | int,
+              'socket_inode': _docker_upgrade_socket_before.stat.inode,
+              'counter': _docker_upgrade_counter_before.stdout | int,
+              'containers': _docker_upgrade_containers_before
+            } | to_nice_json
+          }}
