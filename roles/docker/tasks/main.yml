@@ -1,4 +1,4 @@
-# Copyright (c) 2023 VEXXHOST, Inc.
+# Copyright (c) 2026 VEXXHOST, Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License"); you may
 # not use this file except in compliance with the License. You may obtain
@@ -18,24 +18,45 @@
     name:
       - apparmor
       - apparmor-utils
-  register: _install_apparmor
+  register: docker_install_apparmor
   retries: 5
   delay: 10
-  until: _install_apparmor is not failed
+  until: docker_install_apparmor is not failed
   when: ansible_facts['os_family'] == "Debian"
+
+- name: Install SELinux packages
+  ansible.builtin.package:
+    state: present
+    name:
+      - container-selinux
+  register: docker_install_selinux
+  retries: 5
+  delay: 10
+  until: docker_install_selinux is not failed
+  when: ansible_facts['os_family'] == "RedHat"
 
 - name: Ensure group "docker" exists
   ansible.builtin.group:
     name: docker
     state: present
 
+- name: Create links to Docker binaries
+  ansible.builtin.file:
+    src: "{{ docker_binary_install_dir }}/{{ item }}"
+    dest: "/usr/bin/{{ item }}"
+    state: link
+    force: true
+  loop: "{{ docker_binaries }}"
+  notify:
+    - Restart docker
+
 - name: Create systemd service file for docker
   ansible.builtin.template:
     src: docker.service.j2
     dest: /etc/systemd/system/docker.service
-    mode: "0644"
+    mode: "0o644"
   notify:
-    - Reload systemd
+    - Reload Docker systemd units
     - Restart docker
 
 - name: Create folders for configuration
@@ -56,16 +77,16 @@
   ansible.builtin.copy:
     src: docker.socket
     dest: /usr/lib/systemd/system/docker.socket
-    mode: "0644"
+    mode: "0o644"
   notify:
-    - Reload systemd
+    - Reload Docker systemd units
     - Restart docker
 
 - name: Create docker daemon config file
   ansible.builtin.copy:
     content: "{{ _docker_config | combine(docker_config, recursive=True) | to_nice_json }}"  # noqa: yaml[line-length]
     dest: "{{ docker_cfg_file }}"
-    mode: "0644"
+    mode: "0o644"
   notify:
     - Restart docker
 

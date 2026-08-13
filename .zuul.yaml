@@ -41,7 +41,7 @@
     parent: ansible-collection-containers-molecule
     abstract: true
     vars:
-      docker_version: 24.0.9
+      docker_version: 29.7.2
       molecule_scenario: docker
 
 - job:
@@ -66,6 +66,38 @@
 - job:
     name: ansible-collection-containers-molecule-docker-ubuntu-noble
     parent: ansible-collection-containers-molecule-docker
+    nodeset: ubuntu-noble
+
+- job:
+    name: ansible-collection-containers-molecule-docker-upgrade
+    parent: ansible-collection-containers-molecule-docker
+    abstract: true
+    vars:
+      molecule_scenario: docker-upgrade
+
+- job:
+    name: ansible-collection-containers-molecule-docker-upgrade-debian-trixie
+    parent: ansible-collection-containers-molecule-docker-upgrade
+    nodeset: debian-trixie
+
+- job:
+    name: ansible-collection-containers-molecule-docker-upgrade-rockylinux-9
+    parent: ansible-collection-containers-molecule-docker-upgrade
+    nodeset: rockylinux-9
+
+- job:
+    name: ansible-collection-containers-molecule-docker-upgrade-ubuntu-focal
+    parent: ansible-collection-containers-molecule-docker-upgrade
+    nodeset: ubuntu-focal
+
+- job:
+    name: ansible-collection-containers-molecule-docker-upgrade-ubuntu-jammy
+    parent: ansible-collection-containers-molecule-docker-upgrade
+    nodeset: ubuntu-jammy
+
+- job:
+    name: ansible-collection-containers-molecule-docker-upgrade-ubuntu-noble
+    parent: ansible-collection-containers-molecule-docker-upgrade
     nodeset: ubuntu-noble
 
 - job:
@@ -147,6 +179,11 @@
         - ansible-collection-containers-molecule-docker-ubuntu-focal
         - ansible-collection-containers-molecule-docker-ubuntu-jammy
         - ansible-collection-containers-molecule-docker-ubuntu-noble
+        - ansible-collection-containers-molecule-docker-upgrade-debian-trixie
+        - ansible-collection-containers-molecule-docker-upgrade-rockylinux-9
+        - ansible-collection-containers-molecule-docker-upgrade-ubuntu-focal
+        - ansible-collection-containers-molecule-docker-upgrade-ubuntu-jammy
+        - ansible-collection-containers-molecule-docker-upgrade-ubuntu-noble
         - ansible-collection-containers-molecule-download-binaries
         - ansible-collection-containers-molecule-forget-package-debian-trixie
         - ansible-collection-containers-molecule-forget-package-ubuntu-focal
@@ -171,6 +208,11 @@
         - ansible-collection-containers-molecule-docker-ubuntu-focal
         - ansible-collection-containers-molecule-docker-ubuntu-jammy
         - ansible-collection-containers-molecule-docker-ubuntu-noble
+        - ansible-collection-containers-molecule-docker-upgrade-debian-trixie
+        - ansible-collection-containers-molecule-docker-upgrade-rockylinux-9
+        - ansible-collection-containers-molecule-docker-upgrade-ubuntu-focal
+        - ansible-collection-containers-molecule-docker-upgrade-ubuntu-jammy
+        - ansible-collection-containers-molecule-docker-upgrade-ubuntu-noble
         - ansible-collection-containers-molecule-download-binaries
         - ansible-collection-containers-molecule-forget-package-debian-trixie
         - ansible-collection-containers-molecule-forget-package-ubuntu-focal
