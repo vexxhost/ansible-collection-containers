@@ -1,5 +1,19 @@
 # Changelog
 
+## [1.6.8](https://github.com/vexxhost/ansible-collection-containers/compare/v1.6.7...v1.6.8) (2026-07-10)
+
+
+### Bug Fixes
+
+* **containerd:** normalize sandbox image digest references ([#134](https://github.com/vexxhost/ansible-collection-containers/issues/134)) ([be2da47](https://github.com/vexxhost/ansible-collection-containers/commit/be2da47f87cf8ed7a3c297db0091bdfac2771bb0))
+
+## [1.6.7](https://github.com/vexxhost/ansible-collection-containers/compare/v1.6.6...v1.6.7) (2026-06-02)
+
+
+### Miscellaneous Chores
+
+* release 1.6.7 ([60de740](https://github.com/vexxhost/ansible-collection-containers/commit/60de7405f2a9f15a1a16b70346e49cec56087d81))
+
 ## [1.6.6](https://github.com/vexxhost/ansible-collection-containers/compare/v1.6.5...v1.6.6) (2026-04-20)
 
 

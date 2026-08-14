@@ -1,4 +1,4 @@
-# Copyright (c) 2023 VEXXHOST, Inc.
+# Copyright (c) 2026 VEXXHOST, Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License"); you may
 # not use this file except in compliance with the License. You may obtain
@@ -18,13 +18,26 @@ docker_version: "{{ docker_versions | last }}"
 docker_archive_checksums:
   amd64:
     24.0.9: 692ecfc28333485d184f628b74c25b2894cee9495a51a5418ba60ef95bf733ca
+    29.7.2: 803d433f226db4776e1768fd319fc6c6e4935a456acf84fcc0080818b854bc8f
   arm64:
     24.0.9: 7e999590330a15469de20ac37051407d222ea73c71c10c05d61666d42c5922d1
+    29.7.2: 43d143448adf2c2787704e7d7704fd6d62d367a54c5edaef0a3f75509cb0938d
 
 docker_download_url: "https://download.docker.com/linux/static/stable/{{ ansible_facts['architecture'] | lower }}/docker-{{ docker_version }}.tgz" # noqa: yaml[line-length]
 
 docker_download_dest: "{{ download_artifact_work_directory }}/docker-{{ docker_version }}.tgz"
 docker_archive_checksum: "{{ docker_archive_checksums[download_artifact_goarch][docker_version] }}"
+docker_binary_install_dir: "{{ download_artifact_work_directory }}/docker-{{ docker_version }}"
+docker_binaries:
+  - docker
+  - docker-init
+  - dockerd
+  - docker-proxy
+
+# Updating the installed binaries and configuration does not require activating
+# them immediately. Service or node restarts can be performed separately as
+# part of a controlled maintenance operation.
+docker_restart_on_update: false
 
 # NOTE(mnaser): This is to accomodate for the uninstallation of the old packages
 #               that shipped with the operating system
