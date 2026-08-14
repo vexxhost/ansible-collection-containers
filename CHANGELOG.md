@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.7.0](https://github.com/vexxhost/ansible-collection-containers/compare/v1.6.8...v1.7.0) (2026-08-14)
+
+
+### Features
+
+* upgrade docker to the latest 29.7.2 version ([#145](https://github.com/vexxhost/ansible-collection-containers/issues/145)) ([39aea2d](https://github.com/vexxhost/ansible-collection-containers/commit/39aea2d982d054c56ca4026436827bd1d7b805ba))
+
 ## [1.6.8](https://github.com/vexxhost/ansible-collection-containers/compare/v1.6.7...v1.6.8) (2026-07-10)
 
 
