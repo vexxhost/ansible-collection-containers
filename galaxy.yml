@@ -1,6 +1,6 @@
 namespace: vexxhost
 name: containers
-version: 1.6.8
+version: 1.7.0
 readme: README.md
 authors:
   - Mohammed Naser <mnaser@vexxhost.com>
